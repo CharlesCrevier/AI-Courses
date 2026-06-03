@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Participant Profile Dashboard — June 2026 Courses</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js"></script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f8; color: #1a2332; }
@@ -141,6 +144,14 @@
     <div class="kpi" style="--accent:#2563eb"><div class="value">32</div><div class="label">Countries</div></div>
     <div class="kpi" style="--accent:#be185d"><div class="value">63%</div><div class="label">Male</div></div>
     <div class="kpi" style="--accent:#7c3aed"><div class="value">37%</div><div class="label">Female</div></div>
+  </div>
+
+  <!-- World Map -->
+  <div class="card" style="margin-bottom:20px">
+    <h2>World Map of Participants</h2>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px" id="mapLegend"></div>
+    <div id="worldMap" style="height:420px;width:100%"></div>
+    <div id="mapTooltipBox" style="display:none;position:fixed;background:#1a2332;color:white;padding:8px 12px;border-radius:6px;font-size:.8rem;pointer-events:none;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.3)"></div>
   </div>
 
   <!-- Course overview -->
@@ -664,6 +675,95 @@ function setFilter(idx, btn) {
 }
 
 renderTable(-1);
+
+// ── World Map ─────────────────────────────────────────────────────────────────
+(function(){
+  // ISO-3166 alpha-2 codes mapped to participant counts and course flags
+  const countryData = {
+    NG: { name:'Nigeria',           count:14, courses:[0,2,3] },
+    UA: { name:'Ukraine',           count:11, courses:[0] },
+    KH: { name:'Cambodia',          count:5,  courses:[1] },
+    BD: { name:'Bangladesh',        count:5,  courses:[3] },
+    CM: { name:'Cameroon',          count:3,  courses:[1,2] },
+    MA: { name:'Morocco',           count:3,  courses:[1] },
+    ZW: { name:'Zimbabwe',          count:3,  courses:[2] },
+    TR: { name:'Türkiye',           count:3,  courses:[0,2] },
+    MW: { name:'Malawi',            count:3,  courses:[0,1] },
+    BR: { name:'Brazil',            count:2,  courses:[0,1] },
+    SZ: { name:'Eswatini',          count:2,  courses:[0,3] },
+    GW: { name:'Guinea-Bissau',     count:2,  courses:[1] },
+    ID: { name:'Indonesia',         count:2,  courses:[1] },
+    PK: { name:'Pakistan',          count:2,  courses:[1] },
+    KE: { name:'Kenya',             count:2,  courses:[2,4] },
+    TZ: { name:'Tanzania',          count:2,  courses:[2,3] },
+    BZ: { name:'Belize',            count:1,  courses:[2] },
+    GH: { name:'Ghana',             count:1,  courses:[2] },
+    IN: { name:'India',             count:1,  courses:[2] },
+    SA: { name:'Saudi Arabia',      count:1,  courses:[2] },
+    BG: { name:'Bulgaria',          count:1,  courses:[3] },
+    LS: { name:'Lesotho',           count:1,  courses:[3] },
+    VC: { name:'St. Vincent',       count:1,  courses:[3] },
+    BF: { name:'Burkina Faso',      count:1,  courses:[1] },
+    CI: { name:"Côte d'Ivoire",     count:1,  courses:[4] },
+    JO: { name:'Jordan',            count:1,  courses:[4] },
+    XK: { name:'Kosovo',            count:1,  courses:[4] },
+    NP: { name:'Nepal',             count:1,  courses:[4] },
+    PG: { name:'Papua New Guinea',  count:1,  courses:[4] },
+    CH: { name:'Switzerland',       count:1,  courses:[4] },
+    TH: { name:'Thailand',          count:1,  courses:[4] },
+  };
+
+  // Color scale by count
+  function fillColor(count) {
+    if (count >= 10) return '#003366';
+    if (count >= 5)  return '#1d4ed8';
+    if (count >= 3)  return '#3b82f6';
+    if (count >= 2)  return '#93c5fd';
+    return '#bfdbfe';
+  }
+
+  const series = {};
+  Object.entries(countryData).forEach(([code, d]) => { series[code] = d.count; });
+
+  const map = new jsVectorMap({
+    selector: '#worldMap',
+    map: 'world',
+    backgroundColor: '#f0f4f8',
+    zoomButtons: true,
+    zoomOnScroll: true,
+    regionStyle: {
+      initial:  { fill: '#e2e8f0', stroke: '#cbd5e1', strokeWidth: 0.4 },
+      hover:    { fill: '#fbbf24', cursor: 'pointer' },
+      selected: { fill: '#fbbf24' },
+    },
+    series: {
+      regions: [{
+        attribute: 'fill',
+        scale: { /* manual via normalizeFunction */ },
+        values: series,
+        normalizeFunction: 'linear',
+        min: 1, max: 14,
+        scale: ['#bfdbfe','#1d4ed8','#003366'],
+      }]
+    },
+    onRegionTooltipShow(e, tooltip, code) {
+      const d = countryData[code];
+      if (!d) { e.preventDefault(); return; }
+      const courseNames = d.courses.map(i => COURSES[i].id).join(', ');
+      tooltip.text(
+        `<strong>${d.name}</strong><br>${d.count} participant${d.count>1?'s':''}<br><span style="font-size:.75rem;opacity:.85">${courseNames}</span>`,
+        true
+      );
+    },
+  });
+
+  // Legend
+  const legendEl = document.getElementById('mapLegend');
+  [['1 participant','#bfdbfe'],['2 participants','#93c5fd'],['3–4','#3b82f6'],['5–9','#1d4ed8'],['10+','#003366']].forEach(([label,color])=>{
+    legendEl.innerHTML += `<div style="display:flex;align-items:center;gap:5px;font-size:.75rem;color:#4a5568">
+      <div style="width:14px;height:14px;border-radius:3px;background:${color}"></div>${label}</div>`;
+  });
+})();
 
 // ══════════════════════════════════════════════════════════════════════════════
 // EXECUTIVE INSIGHTS SECTION
