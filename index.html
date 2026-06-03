@@ -264,35 +264,6 @@
     </div>
   </div>
 
-  <!-- 3. AI Readiness Index -->
-  <div class="section-title" style="font-size:.85rem;margin-top:20px">3 &mdash; AI Readiness Index</div>
-  <div class="card" style="margin-bottom:20px">
-    <h2>AI Readiness Index &mdash; Composite score per course (Seniority · Technical Roles · Gender Balance · Country Diversity · Intl. Representation)</h2>
-    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start">
-      <div style="flex:1;min-width:300px">
-        <div class="chart-wrap" style="height:300px"><canvas id="chartAI"></canvas></div>
-      </div>
-      <div style="min-width:200px">
-        <p style="font-size:.78rem;color:#6b7a8d;margin-bottom:12px;line-height:1.5">
-          Each dimension scored 0–10 based on participant data. The radar shows relative strengths and gaps per course.
-        </p>
-        <div id="aiScoreCards" style="display:flex;flex-direction:column;gap:8px"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 4. Cross-Course Network Graph -->
-  <div class="section-title" style="font-size:.85rem;margin-top:20px">4 &mdash; Cross-Course Network Graph</div>
-  <div class="card" style="margin-bottom:20px">
-    <h2>Cross-Course Network Graph &mdash; Countries sending participants to multiple courses (bridge nodes)</h2>
-    <p style="font-size:.78rem;color:#6b7a8d;margin-bottom:14px;line-height:1.5">
-      Colored circles = courses (size proportional to enrolment). Small grey nodes = countries represented in more than one course. Dashed lines between courses indicate shared-country overlap; line weight reflects the number of shared countries.
-    </p>
-    <div style="position:relative;height:400px;width:100%">
-      <canvas id="chartNetwork" style="width:100%;height:100%"></canvas>
-    </div>
-  </div>
-
   <!-- Full participant list -->
   <div class="section-title">Full Participant List</div>
   <div class="card">
@@ -760,8 +731,8 @@ renderTable(-1);
   });
 })();
 
-// ── 3. AI Readiness Index ─────────────────────────────────────────────────────
-(function(){
+// ── (removed) ─────────────────────────────────────────────────────────────────
+if(false)(function(){
   // Score each country on 3 proxy dimensions (0-10 each):
   // D1: Seniority (% Director/Head level) × 10
   // D2: Tech roles (% Technical/IT roles) × 10
@@ -815,8 +786,7 @@ renderTable(-1);
   });
 })();
 
-// ── 4. Cross-Course Network Graph ─────────────────────────────────────────────
-(function(){
+if(false)(function(){
   const canvas = document.getElementById('chartNetwork');
   const ctx = canvas.getContext('2d');
   const W = canvas.offsetWidth || 700;
