@@ -227,6 +227,72 @@
     </div>
   </div>
 
+  <!-- ═══ EXECUTIVE INSIGHTS ════════════════════════════════════════════════ -->
+  <div class="section-title" style="margin-top:40px;font-size:1.2rem;color:#003366;border-bottom:3px solid #003366">
+    &#9632; Executive Insights
+  </div>
+
+  <!-- 1. Portfolio Intelligence Map -->
+  <div class="section-title" style="font-size:.85rem;margin-top:20px">1 &mdash; Portfolio Intelligence Map</div>
+  <div class="card" style="margin-bottom:20px">
+    <h2>Portfolio Intelligence Map &mdash; Course positioning by gender parity, regional diversity &amp; cohort size</h2>
+    <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+      <div style="flex:1;min-width:320px">
+        <div class="chart-wrap" style="height:300px"><canvas id="chartPIM"></canvas></div>
+      </div>
+      <div style="min-width:200px;max-width:280px">
+        <p style="font-size:.78rem;color:#6b7a8d;margin-bottom:10px;line-height:1.5">
+          Each bubble represents one course. <strong>X-axis</strong>: share of female participants.
+          <strong>Y-axis</strong>: number of distinct geographic regions represented.
+          <strong>Bubble size</strong>: total participants.
+        </p>
+        <div class="legend" id="pimLegend" style="flex-direction:column;gap:6px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Participant Role Analysis -->
+  <div class="section-title" style="font-size:.85rem;margin-top:20px">2 &mdash; Participant Role Analysis</div>
+  <div class="grid-2" style="margin-bottom:20px">
+    <div class="card">
+      <h2>Role Distribution &mdash; All Courses</h2>
+      <div class="chart-wrap" style="height:240px"><canvas id="chartRole"></canvas></div>
+    </div>
+    <div class="card">
+      <h2>Role Mix by Course (Stacked)</h2>
+      <div class="chart-wrap" style="height:240px"><canvas id="chartRoleByCourse"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 3. AI Readiness Index -->
+  <div class="section-title" style="font-size:.85rem;margin-top:20px">3 &mdash; AI Readiness Index</div>
+  <div class="card" style="margin-bottom:20px">
+    <h2>AI Readiness Index &mdash; Composite score per course (Seniority · Technical Roles · Gender Balance · Country Diversity · Intl. Representation)</h2>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start">
+      <div style="flex:1;min-width:300px">
+        <div class="chart-wrap" style="height:300px"><canvas id="chartAI"></canvas></div>
+      </div>
+      <div style="min-width:200px">
+        <p style="font-size:.78rem;color:#6b7a8d;margin-bottom:12px;line-height:1.5">
+          Each dimension scored 0–10 based on participant data. The radar shows relative strengths and gaps per course.
+        </p>
+        <div id="aiScoreCards" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Cross-Course Network Graph -->
+  <div class="section-title" style="font-size:.85rem;margin-top:20px">4 &mdash; Cross-Course Network Graph</div>
+  <div class="card" style="margin-bottom:20px">
+    <h2>Cross-Course Network Graph &mdash; Countries sending participants to multiple courses (bridge nodes)</h2>
+    <p style="font-size:.78rem;color:#6b7a8d;margin-bottom:14px;line-height:1.5">
+      Colored circles = courses (size proportional to enrolment). Small grey nodes = countries represented in more than one course. Dashed lines between courses indicate shared-country overlap; line weight reflects the number of shared countries.
+    </p>
+    <div style="position:relative;height:400px;width:100%">
+      <canvas id="chartNetwork" style="width:100%;height:100%"></canvas>
+    </div>
+  </div>
+
   <!-- Full participant list -->
   <div class="section-title">Full Participant List</div>
   <div class="card">
@@ -575,6 +641,278 @@ function setFilter(idx, btn) {
 }
 
 renderTable(-1);
+
+// ══════════════════════════════════════════════════════════════════════════════
+// EXECUTIVE INSIGHTS SECTION
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ── 1. Portfolio Intelligence Map ────────────────────────────────────────────
+// Bubble chart: each course = bubble, x=gender parity, y=regional diversity, size=# participants
+(function(){
+  const courseStats = COURSES.map((c,i)=>{
+    const ps = PARTICIPANTS.filter(p=>p.course===i);
+    const total = ps.length;
+    const female = ps.filter(p=>p.g==='F').length;
+    const genderParity = Math.round(female/total*100); // % female
+    const regions = new Set(ps.map(p=>regionOf(p.c))).size;
+    const countries = new Set(ps.map(p=>p.c)).size;
+    return { id:c.id, short:c.short, color:c.color, total, female, genderParity, regions, countries };
+  });
+  new Chart(document.getElementById('chartPIM'), {
+    type:'bubble',
+    data:{
+      datasets: courseStats.map(s=>({
+        label: s.id,
+        data:[{ x:s.genderParity, y:s.regions, r: Math.max(s.total*1.4, 10) }],
+        backgroundColor: s.color+'99',
+        borderColor: s.color,
+        borderWidth: 2,
+      }))
+    },
+    options:{
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{
+          label: ctx=>{
+            const s=courseStats[ctx.datasetIndex];
+            return [`${s.id}`, `Female: ${s.genderParity}%`, `Regions: ${s.regions}`, `Countries: ${s.countries}`, `Participants: ${s.total}`];
+          }
+        }}
+      },
+      scales:{
+        x:{ title:{display:true,text:'Gender Parity (% Female)',font:{size:11}}, min:0, max:100,
+            grid:{color:'#f0f4f8'}, ticks:{callback:v=>v+'%',font:{size:10}} },
+        y:{ title:{display:true,text:'Regional Diversity (# Regions)',font:{size:11}}, min:0, max:6,
+            grid:{color:'#f0f4f8'}, ticks:{stepSize:1,font:{size:10}} },
+      },
+      maintainAspectRatio:false,
+    }
+  });
+  // Legend below chart
+  const el = document.getElementById('pimLegend');
+  courseStats.forEach(s=>{
+    el.innerHTML += `<div class="legend-item"><div class="legend-dot" style="background:${s.color}"></div><strong>${s.id}</strong>: ${s.short}</div>`;
+  });
+})();
+
+// ── 2. Participant Role Analysis ──────────────────────────────────────────────
+(function(){
+  function roleOf(pos) {
+    const p = pos.toLowerCase();
+    if (p.includes('director') || p.includes('head') || p.includes('chief') || p.includes('commissioner') || p.includes('chairman') || p.includes('president') || p.includes('founder') || p.includes('general')) return 'Director / Head';
+    if (p.includes('manager') || p.includes('coordinator') || p.includes('supervisor')) return 'Manager / Coordinator';
+    if (p.includes('inspector') || p.includes('officer') || p.includes('specialist') || p.includes('analyst') || p.includes('expert')) return 'Officer / Specialist';
+    if (p.includes('engineer') || p.includes('programmer') || p.includes('developer') || p.includes('software') || p.includes('it unit') || p.includes('network') || p.includes('infrastructure')) return 'Technical / IT';
+    if (p.includes('researcher') || p.includes('research') || p.includes('professor')) return 'Researcher';
+    if (p.includes('secretary') || p.includes('administrator') || p.includes('admin') || p.includes('finance')) return 'Admin / Finance';
+    return 'Other';
+  }
+  const roleCounts = {};
+  PARTICIPANTS.forEach(p=>{const r=roleOf(p.pos); roleCounts[r]=(roleCounts[r]||0)+1;});
+  const entries = Object.entries(roleCounts).sort((a,b)=>b[1]-a[1]);
+  const ROLE_COLORS = ['#003366','#0891b2','#059669','#d97706','#7c3aed','#be185d','#6b7280'];
+
+  new Chart(document.getElementById('chartRole'), {
+    type:'bar',
+    data:{
+      labels: entries.map(x=>x[0]),
+      datasets:[{
+        data: entries.map(x=>x[1]),
+        backgroundColor: entries.map((_,i)=>ROLE_COLORS[i]||'#999'),
+        borderRadius:6,
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{grid:{color:'#f0f4f8'}, ticks:{stepSize:2,font:{size:10}}},
+        y:{grid:{display:false}, ticks:{font:{size:10}}},
+      },
+      maintainAspectRatio:false,
+    }
+  });
+
+  // Role breakdown by course (stacked)
+  const ROLES = entries.map(x=>x[0]);
+  new Chart(document.getElementById('chartRoleByCourse'), {
+    type:'bar',
+    data:{
+      labels: COURSES.map(c=>c.id),
+      datasets: ROLES.map((role,i)=>({
+        label: role,
+        data: COURSES.map((_,ci)=>{
+          const ps = PARTICIPANTS.filter(p=>p.course===ci);
+          return ps.filter(p=>roleOf(p.pos)===role).length;
+        }),
+        backgroundColor: ROLE_COLORS[i]||'#999',
+        borderRadius:3,
+      }))
+    },
+    options:{
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},padding:8,boxWidth:10}}},
+      scales:{
+        x:{stacked:true, grid:{display:false}, ticks:{font:{size:10}}},
+        y:{stacked:true, grid:{color:'#f0f4f8'}, ticks:{stepSize:5,font:{size:10}}},
+      },
+      maintainAspectRatio:false,
+    }
+  });
+})();
+
+// ── 3. AI Readiness Index ─────────────────────────────────────────────────────
+(function(){
+  // Score each country on 3 proxy dimensions (0-10 each):
+  // D1: Seniority (% Director/Head level) × 10
+  // D2: Tech roles (% Technical/IT roles) × 10
+  // D3: International exposure (participant in intl org OR multi-course country) × 10 (binary avg)
+  function roleOf(pos) {
+    const p = pos.toLowerCase();
+    if (p.includes('director')||p.includes('head')||p.includes('chief')||p.includes('commissioner')||p.includes('chairman')||p.includes('president')||p.includes('founder')) return 'senior';
+    if (p.includes('engineer')||p.includes('programmer')||p.includes('developer')||p.includes('software')||p.includes('it unit')||p.includes('network')||p.includes('infrastructure')) return 'tech';
+    return 'other';
+  }
+
+  const courseLabels = COURSES.map(c=>c.short);
+  const scores = COURSES.map((_,ci)=>{
+    const ps = PARTICIPANTS.filter(p=>p.course===ci);
+    const senior = ps.filter(p=>roleOf(p.pos)==='senior').length / ps.length * 10;
+    const tech   = ps.filter(p=>roleOf(p.pos)==='tech').length   / ps.length * 10;
+    const female = ps.filter(p=>p.g==='F').length / ps.length * 10;
+    const diversity = new Set(ps.map(p=>p.c)).size / 15 * 10; // max ~15 countries
+    const intl = ps.filter(p=>p.c==='Intl. Org.').length / ps.length * 10;
+    return [+senior.toFixed(1), +tech.toFixed(1), +female.toFixed(1), +diversity.toFixed(1), +intl.toFixed(1)];
+  });
+
+  new Chart(document.getElementById('chartAI'), {
+    type:'radar',
+    data:{
+      labels:['Seniority Level','Technical Roles','Gender Balance','Country Diversity','Intl. Org. Reps'],
+      datasets: COURSES.map((c,i)=>({
+        label: c.id,
+        data: scores[i],
+        borderColor: c.color,
+        backgroundColor: c.color+'22',
+        borderWidth:2,
+        pointRadius:3,
+      }))
+    },
+    options:{
+      plugins:{legend:{position:'bottom',labels:{font:{size:10},padding:10,boxWidth:10}}},
+      scales:{r:{min:0,max:10,ticks:{stepSize:2,font:{size:9}},pointLabels:{font:{size:10}}}},
+      maintainAspectRatio:false,
+    }
+  });
+  // Score cards
+  const wrap = document.getElementById('aiScoreCards');
+  COURSES.forEach((c,i)=>{
+    const avg = (scores[i].reduce((a,b)=>a+b,0)/scores[i].length).toFixed(1);
+    wrap.innerHTML += `<div style="flex:1;min-width:130px;background:#f8fafc;border-radius:8px;padding:12px;border-left:4px solid ${c.color}">
+      <div style="font-size:.7rem;font-weight:700;color:${c.color}">${c.id}</div>
+      <div style="font-size:1.6rem;font-weight:700;color:#1a2332;margin:4px 0">${avg}<span style="font-size:.8rem;color:#6b7a8d">/10</span></div>
+      <div style="font-size:.7rem;color:#6b7a8d">Avg. Readiness Score</div>
+    </div>`;
+  });
+})();
+
+// ── 4. Cross-Course Network Graph ─────────────────────────────────────────────
+(function(){
+  const canvas = document.getElementById('chartNetwork');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth || 700;
+  const H = canvas.offsetHeight || 400;
+  canvas.width = W; canvas.height = H;
+
+  // Nodes: 5 course nodes + shared-country nodes
+  const sharedCountries = {};
+  PARTICIPANTS.forEach(p=>{
+    if (!sharedCountries[p.c]) sharedCountries[p.c]=new Set();
+    sharedCountries[p.c].add(p.course);
+  });
+  const bridges = Object.entries(sharedCountries).filter(([,s])=>s.size>1);
+
+  // Place course nodes in a circle
+  const cx=W/2, cy=H/2, r=120;
+  const courseNodes = COURSES.map((c,i)=>{
+    const angle = (i/COURSES.length)*2*Math.PI - Math.PI/2;
+    return { id:i, x: cx+r*Math.cos(angle), y: cy+r*Math.sin(angle), color:c.color, label:c.id, type:'course' };
+  });
+
+  // Country bridge nodes
+  const bridgeNodes = bridges.map(([country, courses],i)=>{
+    const cs = [...courses];
+    const midX = cs.reduce((a,ci)=>a+courseNodes[ci].x,0)/cs.length;
+    const midY = cs.reduce((a,ci)=>a+courseNodes[ci].y,0)/cs.length;
+    const jitterX = (Math.sin(i*137.5)*0.3)*(W*0.15);
+    const jitterY = (Math.cos(i*137.5)*0.3)*(H*0.15);
+    return { country, courses:cs, x: midX+jitterX, y: midY+jitterY };
+  });
+
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    // Draw bridge edges
+    bridgeNodes.forEach(b=>{
+      b.courses.forEach(ci=>{
+        const n = courseNodes[ci];
+        ctx.beginPath();
+        ctx.moveTo(b.x, b.y);
+        ctx.lineTo(n.x, n.y);
+        ctx.strokeStyle = COURSES[ci].color+'55';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      });
+    });
+    // Draw course-to-course edges (shared participants)
+    for (let a=0;a<5;a++) for (let b=a+1;b<5;b++) {
+      const shared = bridges.filter(([,s])=>s.has(a)&&s.has(b)).length;
+      if (shared>0) {
+        ctx.beginPath();
+        ctx.moveTo(courseNodes[a].x, courseNodes[a].y);
+        ctx.lineTo(courseNodes[b].x, courseNodes[b].y);
+        ctx.strokeStyle = '#00336633';
+        ctx.lineWidth = shared*1.5;
+        ctx.setLineDash([4,4]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+    }
+    // Draw bridge country nodes
+    bridgeNodes.forEach(b=>{
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, 7, 0, 2*Math.PI);
+      ctx.fillStyle = '#e2e8f0';
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 1;
+      ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#475569';
+      ctx.font = '9px Segoe UI,Arial,sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(b.country, b.x, b.y-11);
+    });
+    // Draw course nodes
+    courseNodes.forEach(n=>{
+      const cnt = PARTICIPANTS.filter(p=>p.course===n.id).length;
+      const rad = 14 + cnt*0.4;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, rad, 0, 2*Math.PI);
+      ctx.fillStyle = n.color;
+      ctx.shadowColor = n.color+'66';
+      ctx.shadowBlur = 8;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = 'white';
+      ctx.font = 'bold 8.5px Segoe UI,Arial,sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(n.label, n.x, n.y-2);
+      ctx.font = '8px Segoe UI,Arial,sans-serif';
+      ctx.fillText(cnt+' p.', n.x, n.y+7);
+    });
+    ctx.textBaseline = 'alphabetic';
+  }
+  // Wait for layout
+  setTimeout(()=>{ canvas.width=canvas.offsetWidth||700; draw(); }, 100);
+})();
 </script>
 </body>
 </html>
