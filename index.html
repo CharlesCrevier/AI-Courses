@@ -559,10 +559,20 @@ new Chart(document.getElementById('chartGenderCourse'), {
 const countryCounts = countBy(PARTICIPANTS, 'c');
 const sortedCountries = Object.entries(countryCounts).sort((a,b)=>b[1]-a[1]);
 const top15 = sortedCountries.slice(0,15);
+// Use emoji flags in chart labels for browsers that support them
+const flagEmoji = {
+  'Bangladesh':'🇧🇩','Belize':'🇧🇿','Brazil':'🇧🇷','Bulgaria':'🇧🇬','Burkina Faso':'🇧🇫',
+  'Cambodia':'🇰🇭','Cameroon':'🇨🇲',"Côte d'Ivoire":'🇨🇮','Eswatini':'🇸🇿','Ghana':'🇬🇭',
+  'Guinea-Bissau':'🇬🇼','India':'🇮🇳','Indonesia':'🇮🇩','Intl. Org.':'🌐','Jordan':'🇯🇴',
+  'Kenya':'🇰🇪','Kosovo':'🇽🇰','Lesotho':'🇱🇸','Malawi':'🇲🇼','Morocco':'🇲🇦',
+  'Nepal':'🇳🇵','Nigeria':'🇳🇬','Pakistan':'🇵🇰','Papua New Guinea':'🇵🇬',
+  'Saudi Arabia':'🇸🇦','St. Vincent':'🇻🇨','Switzerland':'🇨🇭','Tanzania':'🇹🇿',
+  'Thailand':'🇹🇭','Türkiye':'🇹🇷','Ukraine':'🇺🇦','Zimbabwe':'🇿🇼',
+};
 new Chart(document.getElementById('chartCountry'), {
   type:'bar',
   data:{
-    labels: top15.map(x=>x[0]),
+    labels: top15.map(x=>`${flagEmoji[x[0]]||''} ${x[0]}`),
     datasets:[{
       data: top15.map(x=>x[1]),
       backgroundColor: top15.map((_,i)=>`hsl(${210+i*8},70%,${42+i*2}%)`),
@@ -625,6 +635,22 @@ sectorEntries.forEach(([s,n])=>{
   leg.innerHTML += `<div class="legend-item"><div class="legend-dot" style="background:${SECTOR_COLORS[s]||'#999'}"></div>${s} (${n})</div>`;
 });
 
+// ── Country → ISO code lookup ────────────────────────────────────────────────
+const ISO2 = {
+  'Bangladesh':'bd','Belize':'bz','Brazil':'br','Bulgaria':'bg','Burkina Faso':'bf',
+  'Cambodia':'kh','Cameroon':'cm',"Côte d'Ivoire":'ci','Eswatini':'sz','Ghana':'gh',
+  'Guinea-Bissau':'gw','India':'in','Indonesia':'id','Intl. Org.':null,'Jordan':'jo',
+  'Kenya':'ke','Kosovo':'xk','Lesotho':'ls','Malawi':'mw','Morocco':'ma',
+  'Nepal':'np','Nigeria':'ng','Pakistan':'pk','Papua New Guinea':'pg',
+  'Saudi Arabia':'sa','St. Vincent':'vc','Switzerland':'ch','Tanzania':'tz',
+  'Thailand':'th','Türkiye':'tr','Ukraine':'ua','Zimbabwe':'zw',
+};
+function flagImg(country, size=20) {
+  const code = ISO2[country];
+  if (!code) return '<span style="font-size:.85rem">🌐</span>';
+  return `<img src="https://flagcdn.com/w${size}/${code}.png" width="${size}" style="border-radius:2px;vertical-align:middle;box-shadow:0 0 0 1px #e2e8f0" alt="${country}">`;
+}
+
 // ── Country table ─────────────────────────────────────────────────────────────
 const maxCount = sortedCountries[0][1];
 const ctable = document.getElementById('countryTable');
@@ -634,7 +660,7 @@ sortedCountries.forEach(([country, count]) => {
   const courses = [...new Set(PARTICIPANTS.filter(p=>p.c===country).map(p=>p.course))];
   const dots = courses.map(ci=>`<span class="dot" style="background:${COURSES[ci].color}" title="${COURSES[ci].id}"></span>`).join('');
   const pct = Math.round(count/maxCount*100);
-  ctbody.innerHTML += `<tr><td>${country}</td><td style="font-weight:700;color:#003366">${count}</td><td>${dots}</td><td class="bar-cell"><div class="mini-bar" style="width:${pct}%"></div></td></tr>`;
+  ctbody.innerHTML += `<tr><td>${flagImg(country)} &nbsp;${country}</td><td style="font-weight:700;color:#003366">${count}</td><td>${dots}</td><td class="bar-cell"><div class="mini-bar" style="width:${pct}%"></div></td></tr>`;
 });
 
 // ── Participant table ─────────────────────────────────────────────────────────
@@ -650,7 +676,7 @@ function renderTable(filter) {
       <td style="color:#6b7a8d">${i+1}</td>
       <td style="font-weight:600">${p.n}</td>
       <td class="${p.g==='M'?'gender-m':'gender-f'}">${p.g}</td>
-      <td>${p.c}</td>
+      <td style="white-space:nowrap">${flagImg(p.c)} &nbsp;${p.c}</td>
       <td>${p.inst}</td>
       <td style="color:#4a5568">${p.pos}</td>
       <td><span style="font-size:.7rem;font-weight:700;color:${c.color};background:${c.color}18;padding:2px 7px;border-radius:10px">${c.id}</span></td>
