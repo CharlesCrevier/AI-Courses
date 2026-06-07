@@ -130,7 +130,7 @@
     <p>ITC-ILO Training Courses &mdash; June 2026</p>
   </div>
   <div class="header-meta">
-    5 courses &nbsp;|&nbsp; 82 participants &nbsp;|&nbsp; 32 countries<br>
+    5 courses &nbsp;|&nbsp; 85 participants &nbsp;|&nbsp; 33 countries<br>
     01 June &ndash; 26 June 2026
   </div>
 </header>
@@ -139,11 +139,11 @@
 
   <!-- KPI row -->
   <div class="kpi-row">
-    <div class="kpi" style="--accent:#003366"><div class="value">82</div><div class="label">Total Participants</div></div>
+    <div class="kpi" style="--accent:#003366"><div class="value">85</div><div class="label">Total Participants</div></div>
     <div class="kpi" style="--accent:#0077cc"><div class="value">5</div><div class="label">Courses</div></div>
-    <div class="kpi" style="--accent:#2563eb"><div class="value">32</div><div class="label">Countries</div></div>
-    <div class="kpi" style="--accent:#be185d"><div class="value">63%</div><div class="label">Male</div></div>
-    <div class="kpi" style="--accent:#7c3aed"><div class="value">37%</div><div class="label">Female</div></div>
+    <div class="kpi" style="--accent:#2563eb"><div class="value">33</div><div class="label">Countries</div></div>
+    <div class="kpi" style="--accent:#be185d"><div class="value">64%</div><div class="label">Male</div></div>
+    <div class="kpi" style="--accent:#7c3aed"><div class="value">36%</div><div class="label">Female</div></div>
   </div>
 
   <!-- Course overview -->
@@ -171,8 +171,8 @@
       <div class="course-row" style="--c:#d97706">
         <span class="code">A9718849</span>
         <span class="name">Designing and Managing Digital Case Management System</span>
-        <span style="font-size:.75rem;color:#6b7a8d;min-width:80px">8 countries</span>
-        <span class="badge">11 participants</span>
+        <span style="font-size:.75rem;color:#6b7a8d;min-width:80px">11 countries</span>
+        <span class="badge">14 participants</span>
       </div>
       <div class="course-row" style="--c:#7c3aed">
         <span class="code">A9718852</span>
@@ -192,8 +192,8 @@
     <div class="card">
       <h2>Gender Distribution</h2>
       <div class="gender-row">
-        <div class="g-badge male"><div class="g-val">52</div><div class="g-lbl">Male (63%)</div></div>
-        <div class="g-badge female"><div class="g-val">30</div><div class="g-lbl">Female (37%)</div></div>
+        <div class="g-badge male"><div class="g-val">54</div><div class="g-lbl">Male (64%)</div></div>
+        <div class="g-badge female"><div class="g-val">31</div><div class="g-lbl">Female (36%)</div></div>
       </div>
       <div class="chart-wrap sm"><canvas id="chartGender"></canvas></div>
     </div>
@@ -223,7 +223,7 @@
       <div class="legend" id="sectorLegend"></div>
     </div>
     <div class="card">
-      <h2>Countries Represented (32)</h2>
+      <h2>Countries Represented (33)</h2>
       <div style="max-height:280px;overflow-y:auto">
         <table class="country-table" id="countryTable"></table>
       </div>
@@ -243,7 +243,7 @@
 
       <div style="font-size:.875rem;line-height:1.75;color:#2d3748">
         <p style="margin-bottom:12px">
-          The June 2026 ITC-ILO portfolio brings together <strong>82 professionals from 32 countries</strong> across five courses focused on labour governance, social protection, occupational safety, and digital transformation. The cohort reflects a deliberate effort to span institutional levels, geographic regions, and professional functions — providing a rich peer-learning environment anchored in real-world implementation experience.
+          The June 2026 ITC-ILO portfolio brings together <strong>85 professionals from 33 countries</strong> across five courses focused on labour governance, social protection, occupational safety, and digital transformation. The cohort reflects a deliberate effort to span institutional levels, geographic regions, and professional functions — providing a rich peer-learning environment anchored in real-world implementation experience.
         </p>
         <p style="margin-bottom:12px">
           <strong>Geographic reach</strong> is broad but strategically concentrated. <strong>Sub-Saharan Africa</strong> accounts for the largest share of participants (35%), with Nigeria (14), Ukraine (11), Cambodia (5), and Bangladesh (5) as the most represented countries. The portfolio extends across all major developing regions — Asia-Pacific, Latin America, Eastern Europe, MENA, and the Pacific — alongside staff from three international organisations (ILO, WFP, WHO).
@@ -419,18 +419,21 @@ const PARTICIPANTS = [
   {n:'Norman GWEZUVA',g:'M',c:'Zimbabwe',inst:'NSSA',pos:'Principal OSH Training Officer',course:2},
   {n:'Penias MARUNZA',g:'M',c:'Zimbabwe',inst:'NSSA',pos:'Chief Inspector of Factories',course:2},
   {n:'Trust MASIMBA',g:'M',c:'Zimbabwe',inst:'NSSA',pos:'Software Engineer',course:2},
-  // A9718849 — Case Management (11)
+  // A9718849 — Case Management (14)
   {n:'Saeed AHMED',g:'M',c:'Bangladesh',inst:'Intellier Ltd.',pos:'Director & COO',course:3},
   {n:'Md BADRUZZAMAN',g:'M',c:'Bangladesh',inst:'Intellier Ltd.',pos:'Lead Business Analyst',course:3},
   {n:'Ramkrishna BARMAN',g:'M',c:'Bangladesh',inst:'Ministry of Labour and Employment',pos:'Senior Assistant Secretary',course:3},
   {n:'Md. Masum BILLAH',g:'M',c:'Bangladesh',inst:'Ministry of Labour and Employment',pos:'Senior Assistant Secretary',course:3},
+  {n:'Sally-ann KING',g:'F',c:'Barbados',inst:'Ministry of Labour, Social Security and Third Sector',pos:'Senior Labour Officer',course:3},
+  {n:'Leandro BENEDETTI SBRISSA',g:'M',c:'Brazil',inst:'Self-Employed Lawyer',pos:'Self-Employed Lawyer',course:3},
   {n:'Kristina STANCHEVA',g:'F',c:'Bulgaria',inst:'NICA',pos:'Project Manager',course:3},
   {n:'Majawonkhe DLAMINI',g:'M',c:'Eswatini',inst:'CMAC',pos:'IT Officer',course:3},
-  {n:'Chowdhury KADIR',g:'M',c:'Bangladesh',inst:'ILO',pos:'Senior Programme Officer',course:3},
+  {n:'Chowdhury KADIR',g:'M',c:'Intl. Org.',inst:'ILO',pos:'Senior Programme Officer',course:3},
   {n:'Sebabatso RATSELE',g:'F',c:'Lesotho',inst:'Directorate of Dispute Prevention (DDPR)',pos:'Asst Dispute Prevention Officer',course:3},
   {n:'Mansir ABUBAKAR',g:'M',c:'Nigeria',inst:'Saban Garin Yaya Oil and Gas Ltd',pos:'Chairman',course:3},
   {n:'Racquel JACOBS-LAWRENCE',g:'F',c:'St. Vincent',inst:'Government',pos:'Labour Commissioner',course:3},
   {n:'Usekelege MPULLA',g:'M',c:'Tanzania',inst:'Commission for Mediation and Arbitration',pos:'Director',course:3},
+  {n:'Moses MTUNZIE',g:'M',c:'Zimbabwe',inst:'Ministry of Public Service Labour and Social Welfare',pos:'Labour Officer',course:3},
   // A9718852 — Labour Migration (8)
   {n:'Yannick GNAMAN',g:'M',c:"Côte d'Ivoire",inst:'Agence Emploi Jeunes',pos:'Head of Large Businesses Agency',course:4},
   {n:'Aya NAFI',g:'F',c:'Jordan',inst:'Freelance',pos:'Freelance Researcher',course:4},
@@ -527,7 +530,7 @@ new Chart(document.getElementById('chartGender'), {
   type: 'doughnut',
   data: {
     labels:['Male','Female'],
-    datasets:[{data:[52,30], backgroundColor:['#1d4ed8','#be185d'], borderWidth:0, hoverOffset:6}]
+    datasets:[{data:[54,31], backgroundColor:['#1d4ed8','#be185d'], borderWidth:0, hoverOffset:6}]
   },
   options:{
     plugins:{legend:{position:'bottom', labels:{font:baseFont, padding:12}}},
@@ -541,8 +544,8 @@ new Chart(document.getElementById('chartGenderCourse'), {
   data:{
     labels: COURSES.map(c=>c.id),
     datasets:[
-      {label:'Male',   data:[17,13,13,8,1], backgroundColor:'#1d4ed8', borderRadius:4},
-      {label:'Female', data:[6,7,7,3,7],    backgroundColor:'#be185d', borderRadius:4},
+      {label:'Male',   data:[17,13,13,10,1], backgroundColor:'#1d4ed8', borderRadius:4},
+      {label:'Female', data:[6,7,7,4,7],    backgroundColor:'#be185d', borderRadius:4},
     ]
   },
   options:{
@@ -561,7 +564,7 @@ const sortedCountries = Object.entries(countryCounts).sort((a,b)=>b[1]-a[1]);
 const top15 = sortedCountries.slice(0,15);
 // Use emoji flags in chart labels for browsers that support them
 const flagEmoji = {
-  'Bangladesh':'🇧🇩','Belize':'🇧🇿','Brazil':'🇧🇷','Bulgaria':'🇧🇬','Burkina Faso':'🇧🇫',
+  'Bangladesh':'🇧🇩','Barbados':'🇧🇧','Belize':'🇧🇿','Brazil':'🇧🇷','Bulgaria':'🇧🇬','Burkina Faso':'🇧🇫',
   'Cambodia':'🇰🇭','Cameroon':'🇨🇲',"Côte d'Ivoire":'🇨🇮','Eswatini':'🇸🇿','Ghana':'🇬🇭',
   'Guinea-Bissau':'🇬🇼','India':'🇮🇳','Indonesia':'🇮🇩','Intl. Org.':'🌐','Jordan':'🇯🇴',
   'Kenya':'🇰🇪','Kosovo':'🇽🇰','Lesotho':'🇱🇸','Malawi':'🇲🇼','Morocco':'🇲🇦',
@@ -637,7 +640,7 @@ sectorEntries.forEach(([s,n])=>{
 
 // ── Country → ISO code lookup ────────────────────────────────────────────────
 const ISO2 = {
-  'Bangladesh':'bd','Belize':'bz','Brazil':'br','Bulgaria':'bg','Burkina Faso':'bf',
+  'Bangladesh':'bd','Barbados':'bb','Belize':'bz','Brazil':'br','Bulgaria':'bg','Burkina Faso':'bf',
   'Cambodia':'kh','Cameroon':'cm',"Côte d'Ivoire":'ci','Eswatini':'sz','Ghana':'gh',
   'Guinea-Bissau':'gw','India':'in','Indonesia':'id','Intl. Org.':null,'Jordan':'jo',
   'Kenya':'ke','Kosovo':'xk','Lesotho':'ls','Malawi':'mw','Morocco':'ma',
@@ -686,7 +689,7 @@ function renderTable(filter) {
 
 // Build filter buttons
 const filterRow = document.getElementById('courseFilter');
-filterRow.innerHTML = `<button class="filter-btn all active" style="--c:#003366" onclick="setFilter(-1,this)">All (82)</button>`;
+filterRow.innerHTML = `<button class="filter-btn all active" style="--c:#003366" onclick="setFilter(-1,this)">All (85)</button>`;
 COURSES.forEach((c,i)=>{
   const cnt = PARTICIPANTS.filter(p=>p.course===i).length;
   filterRow.innerHTML += `<button class="filter-btn" style="--c:${c.color}" onclick="setFilter(${i},this)">${c.id} (${cnt})</button>`;
@@ -711,10 +714,11 @@ renderTable(-1);
     BD: { name:'Bangladesh',        count:5,  courses:[3] },
     CM: { name:'Cameroon',          count:3,  courses:[1,2] },
     MA: { name:'Morocco',           count:3,  courses:[1] },
-    ZW: { name:'Zimbabwe',          count:3,  courses:[2] },
+    ZW: { name:'Zimbabwe',          count:4,  courses:[2,3] },
     TR: { name:'Türkiye',           count:3,  courses:[0,2] },
     MW: { name:'Malawi',            count:3,  courses:[0,1] },
-    BR: { name:'Brazil',            count:2,  courses:[0,1] },
+    BB: { name:'Barbados',          count:1,  courses:[3] },
+    BR: { name:'Brazil',            count:3,  courses:[0,1,3] },
     SZ: { name:'Eswatini',          count:2,  courses:[0,3] },
     GW: { name:'Guinea-Bissau',     count:2,  courses:[1] },
     ID: { name:'Indonesia',         count:2,  courses:[1] },
