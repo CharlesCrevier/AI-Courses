@@ -186,31 +186,31 @@
     <div class="course-list">
       <div class="course-row" style="--c:#1d4ed8">
         <span class="code">A9718841</span>
-        <span class="name">Agile Labour Inspection: Digital Transformations for Workplace Compliance</span>
+        <span class="name">Agile Labour Inspection: Digital Transformations for Workplace Compliance <span style="color:#1d4ed8;font-weight:600">(Labour Inspection)</span></span>
         <span style="font-size:.75rem;color:#6b7a8d;min-width:80px">6 countries</span>
         <span class="badge">23 participants</span>
       </div>
       <div class="course-row" style="--c:#0891b2">
         <span class="code">A9718847</span>
-        <span class="name">Smart Social Protection Systems for the Age of Artificial Intelligence</span>
+        <span class="name">Smart Social Protection Systems for the Age of Artificial Intelligence <span style="color:#0891b2;font-weight:600">(Social Protection)</span></span>
         <span style="font-size:.75rem;color:#6b7a8d;min-width:80px">10 countries</span>
         <span class="badge">20 participants</span>
       </div>
       <div class="course-row" style="--c:#059669">
         <span class="code">A9718848</span>
-        <span class="name">New Technologies, AI and Digitalization for the OSH Practice</span>
+        <span class="name">New Technologies, AI and Digitalization for the OSH Practice <span style="color:#059669;font-weight:600">(OSH)</span></span>
         <span style="font-size:.75rem;color:#6b7a8d;min-width:80px">11 countries</span>
         <span class="badge">20 participants</span>
       </div>
       <div class="course-row" style="--c:#d97706">
         <span class="code">A9718849</span>
-        <span class="name">Designing and Managing Digital Case Management System</span>
+        <span class="name">Designing and Managing Digital Case Management System <span style="color:#d97706;font-weight:600">(Social Dialogue)</span></span>
         <span style="font-size:.75rem;color:#6b7a8d;min-width:80px">11 countries</span>
         <span class="badge">14 participants</span>
       </div>
       <div class="course-row" style="--c:#7c3aed">
         <span class="code">A9718852</span>
-        <span class="name">Digital Transformation for Inclusive Labour Migration Governance</span>
+        <span class="name">Digital Transformation for Inclusive Labour Migration Governance <span style="color:#7c3aed;font-weight:600">(Labour Migration)</span></span>
         <span style="font-size:.75rem;color:#6b7a8d;min-width:80px">8 countries</span>
         <span class="badge">8 participants</span>
       </div>
@@ -600,9 +600,9 @@
 // ── Data ──────────────────────────────────────────────────────────────────────
 const COURSES = [
   { id:'A9718841', short:'Labour Inspection', color:'#1d4ed8' },
-  { id:'A9718847', short:'Social Protection / AI', color:'#0891b2' },
-  { id:'A9718848', short:'OSH & Digitalization', color:'#059669' },
-  { id:'A9718849', short:'Case Management', color:'#d97706' },
+  { id:'A9718847', short:'Social Protection', color:'#0891b2' },
+  { id:'A9718848', short:'OSH', color:'#059669' },
+  { id:'A9718849', short:'Social Dialogue', color:'#d97706' },
   { id:'A9718852', short:'Labour Migration', color:'#7c3aed' },
 ];
 
@@ -762,7 +762,7 @@ const baseFont = { family:"'Segoe UI',Arial,sans-serif", size:11 };
 new Chart(document.getElementById('chartCourse'), {
   type: 'bar',
   data: {
-    labels: COURSES.map(c=>c.id),
+    labels: COURSES.map(c=>c.short),
     datasets: [{
       data: [23,20,20,11,8],
       backgroundColor: COURSES.map(c=>c.color),
@@ -796,7 +796,7 @@ new Chart(document.getElementById('chartGender'), {
 new Chart(document.getElementById('chartGenderCourse'), {
   type:'bar',
   data:{
-    labels: COURSES.map(c=>c.id),
+    labels: COURSES.map(c=>c.short),
     datasets:[
       {label:'Male',   data:[17,13,13,10,1], backgroundColor:'#1d4ed8', borderRadius:4},
       {label:'Female', data:[6,7,7,4,7],    backgroundColor:'#be185d', borderRadius:4},
@@ -1144,7 +1144,7 @@ renderTable(-1);
   new Chart(document.getElementById('chartRoleByCourse'), {
     type:'bar',
     data:{
-      labels: COURSES.map(c=>c.id),
+      labels: COURSES.map(c=>c.short),
       datasets: ROLES.map((role,i)=>({
         label: role,
         data: COURSES.map((_,ci)=>{
