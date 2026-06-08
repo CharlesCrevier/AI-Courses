@@ -120,6 +120,25 @@
   }
   .filter-btn.active { border-color: var(--c); background: var(--c); color: white; }
   .filter-btn.all.active { border-color: #003366; background: #003366; color: white; }
+
+  /* Deep dive tabs */
+  #deepDiveTabs .tab-btn {
+    border-radius: 8px 8px 0 0; padding: 10px 18px; font-size: .78rem; line-height: 1.3;
+    border: 1px solid #e8ecf1; border-bottom: none; background: #f8fafc; color: #6b7a8d;
+    min-width: 120px; text-align: center;
+  }
+  #deepDiveTabs .tab-btn.active { background: white; color: #003366; border-color: #e8ecf1; border-bottom: 1px solid white; }
+
+  /* Intro cards */
+  .intro-card {
+    border: 1px solid #e8ecf1; border-radius: 10px; padding: 14px 16px;
+    background: #fafbfc; font-size: .8rem; line-height: 1.55; transition: box-shadow .15s;
+  }
+  .intro-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+  .intro-card .ic-name { font-weight: 700; color: #1a2332; font-size: .85rem; margin-bottom:3px; }
+  .intro-card .ic-role { font-size: .73rem; color: #6b7a8d; margin-bottom: 8px; }
+  .intro-card .ic-text { color: #374151; font-size: .78rem; }
+  .ic-tag { display:inline-block; font-size:.65rem; font-weight:700; padding:2px 7px; border-radius:10px; margin-right:3px; margin-top:5px; }
 </style>
 </head>
 <body>
@@ -330,6 +349,207 @@
     </div>
   </div>
 
+
+  <!-- ═══ COURSE DEEP DIVES ════════════════════════════════════════════════ -->
+  <div class="section-title" style="margin-top:40px;font-size:1.2rem;color:#003366;border-bottom:3px solid #003366">
+    &#9632; Course Deep Dives &mdash; Pre-course Survey &amp; Participant Introductions
+  </div>
+
+  <!-- Course tab navigation -->
+  <div class="tabs" id="deepDiveTabs" style="margin-bottom:0;border-bottom:none;gap:6px;padding-bottom:0">
+    <button class="tab-btn active" style="border-radius:8px 8px 0 0;background:#1d4ed8;color:white;border-bottom-color:#1d4ed8" onclick="switchDeep(0,this)">A9718841<br><span style="font-size:.65rem;font-weight:400">Labour Inspection</span></button>
+    <button class="tab-btn" style="border-radius:8px 8px 0 0" onclick="switchDeep(1,this)">A9718847<br><span style="font-size:.65rem;font-weight:400">Social Protection / AI</span></button>
+    <button class="tab-btn" style="border-radius:8px 8px 0 0" onclick="switchDeep(2,this)">A9718848<br><span style="font-size:.65rem;font-weight:400">OSH &amp; Digitalization</span></button>
+    <button class="tab-btn" style="border-radius:8px 8px 0 0" onclick="switchDeep(3,this)">A9718849<br><span style="font-size:.65rem;font-weight:400">Case Management</span></button>
+    <button class="tab-btn" style="border-radius:8px 8px 0 0" onclick="switchDeep(4,this)">A9718852<br><span style="font-size:.65rem;font-weight:400">Labour Migration</span></button>
+  </div>
+
+  <!-- ── TAB 0: A9718841 Labour Inspection ─────────────────────────────────── -->
+  <div id="deep0" class="tab-panel active" style="background:white;border-radius:0 10px 10px 10px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:20px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:6px;height:48px;background:#1d4ed8;border-radius:3px"></div>
+      <div>
+        <div style="font-size:1.1rem;font-weight:700;color:#1d4ed8">Agile Labour Inspection: Digital Transformations for Workplace Compliance</div>
+        <div style="font-size:.8rem;color:#6b7a8d">A9718841 &nbsp;·&nbsp; 23 participants &nbsp;·&nbsp; 6 countries &nbsp;·&nbsp; 18 pre-course survey responses</div>
+      </div>
+    </div>
+    <!-- Survey charts row 1 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px">
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#1d4ed8;text-transform:uppercase;margin-bottom:10px">Years of Experience</div>
+        <div style="height:160px"><canvas id="c841exp"></canvas></div>
+      </div>
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#1d4ed8;text-transform:uppercase;margin-bottom:10px">In Public Labour Inspection?</div>
+        <div style="height:160px"><canvas id="c841insp"></canvas></div>
+      </div>
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#1d4ed8;text-transform:uppercase;margin-bottom:10px">Prior Training (last 3 yrs)</div>
+        <div style="height:160px"><canvas id="c841train"></canvas></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#1d4ed8;text-transform:uppercase;margin-bottom:10px">Motivation to Join</div>
+        <div style="height:180px"><canvas id="c841motiv"></canvas></div>
+      </div>
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#1d4ed8;text-transform:uppercase;margin-bottom:10px">Academic / Professional Background</div>
+        <div style="height:180px"><canvas id="c841bg"></canvas></div>
+      </div>
+    </div>
+    <!-- Participant intro cards -->
+    <div style="font-size:.85rem;font-weight:700;color:#003366;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #e8ecf1;text-transform:uppercase;letter-spacing:.4px">Participant Introductions</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px" id="cards841"></div>
+  </div>
+
+  <!-- ── TAB 1: A9718847 Social Protection / AI ─────────────────────────────── -->
+  <div id="deep1" class="tab-panel" style="background:white;border-radius:0 10px 10px 10px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:20px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:6px;height:48px;background:#0891b2;border-radius:3px"></div>
+      <div>
+        <div style="font-size:1.1rem;font-weight:700;color:#0891b2">Smart Social Protection Systems for the Age of Artificial Intelligence</div>
+        <div style="font-size:.8rem;color:#6b7a8d">A9718847 &nbsp;·&nbsp; 20 participants &nbsp;·&nbsp; 10 countries &nbsp;·&nbsp; 13 pre-course survey responses</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px">
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#0891b2;text-transform:uppercase;margin-bottom:10px">AI Confidence (self-rated 1–10)</div>
+        <div style="height:160px"><canvas id="c847ai"></canvas></div>
+      </div>
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#0891b2;text-transform:uppercase;margin-bottom:10px">Digital Transformation Confidence</div>
+        <div style="height:160px"><canvas id="c847dt"></canvas></div>
+      </div>
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#0891b2;text-transform:uppercase;margin-bottom:10px">Academic Background</div>
+        <div style="height:160px"><canvas id="c847bg"></canvas></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#0891b2;text-transform:uppercase;margin-bottom:10px">Social Protection System Status in Country</div>
+        <div style="height:180px"><canvas id="c847status"></canvas></div>
+      </div>
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#0891b2;text-transform:uppercase;margin-bottom:10px">Top Topics of Interest</div>
+        <div style="height:180px"><canvas id="c847topics"></canvas></div>
+      </div>
+    </div>
+    <div style="font-size:.85rem;font-weight:700;color:#003366;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #e8ecf1;text-transform:uppercase;letter-spacing:.4px">Participant Introductions</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px" id="cards847"></div>
+  </div>
+
+  <!-- ── TAB 2: A9718848 OSH & Digitalization ─────────────────────────────── -->
+  <div id="deep2" class="tab-panel" style="background:white;border-radius:0 10px 10px 10px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:20px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:6px;height:48px;background:#059669;border-radius:3px"></div>
+      <div>
+        <div style="font-size:1.1rem;font-weight:700;color:#059669">New Technologies, AI and Digitalization for the OSH Practice</div>
+        <div style="font-size:.8rem;color:#6b7a8d">A9718848 &nbsp;·&nbsp; 20 participants &nbsp;·&nbsp; 11 countries &nbsp;·&nbsp; 10 pre-course survey responses</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px">
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#059669;text-transform:uppercase;margin-bottom:10px">Years of OSH Experience</div>
+        <div style="height:160px"><canvas id="c848exp"></canvas></div>
+      </div>
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#059669;text-transform:uppercase;margin-bottom:10px">Currently in OSH Inspection?</div>
+        <div style="height:160px"><canvas id="c848insp"></canvas></div>
+      </div>
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#059669;text-transform:uppercase;margin-bottom:10px">Prior Training (last 3 yrs)</div>
+        <div style="height:160px"><canvas id="c848train"></canvas></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#059669;text-transform:uppercase;margin-bottom:10px">Motivation to Join</div>
+        <div style="height:180px"><canvas id="c848motiv"></canvas></div>
+      </div>
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#059669;text-transform:uppercase;margin-bottom:10px">Professional Background</div>
+        <div style="height:180px"><canvas id="c848bg"></canvas></div>
+      </div>
+    </div>
+    <div style="font-size:.85rem;font-weight:700;color:#003366;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #e8ecf1;text-transform:uppercase;letter-spacing:.4px">Participant Introductions</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px" id="cards848"></div>
+  </div>
+
+  <!-- ── TAB 3: A9718849 Case Management ─────────────────────────────────── -->
+  <div id="deep3" class="tab-panel" style="background:white;border-radius:0 10px 10px 10px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:20px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:6px;height:48px;background:#d97706;border-radius:3px"></div>
+      <div>
+        <div style="font-size:1.1rem;font-weight:700;color:#d97706">Designing and Managing Digital Case Management System</div>
+        <div style="font-size:.8rem;color:#6b7a8d">A9718849 &nbsp;·&nbsp; 14 participants &nbsp;·&nbsp; 11 countries &nbsp;·&nbsp; 8 pre-course survey responses</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px">
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#d97706;text-transform:uppercase;margin-bottom:10px">Academic Background</div>
+        <div style="height:160px"><canvas id="c849bg"></canvas></div>
+      </div>
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#d97706;text-transform:uppercase;margin-bottom:10px">Years of Experience</div>
+        <div style="height:160px"><canvas id="c849exp"></canvas></div>
+      </div>
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#d97706;text-transform:uppercase;margin-bottom:10px">Current CMS Status in Institution</div>
+        <div style="height:160px"><canvas id="c849cms"></canvas></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#d97706;text-transform:uppercase;margin-bottom:10px">Top Topics of Interest</div>
+        <div style="height:180px"><canvas id="c849topics"></canvas></div>
+      </div>
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#d97706;text-transform:uppercase;margin-bottom:10px">Prior Training in Digital Case Mgmt</div>
+        <div style="height:180px"><canvas id="c849train"></canvas></div>
+      </div>
+    </div>
+    <div style="font-size:.85rem;font-weight:700;color:#003366;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #e8ecf1;text-transform:uppercase;letter-spacing:.4px">Participant Introductions</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px" id="cards849"></div>
+  </div>
+
+  <!-- ── TAB 4: A9718852 Labour Migration ──────────────────────────────────── -->
+  <div id="deep4" class="tab-panel" style="background:white;border-radius:0 10px 10px 10px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:20px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:6px;height:48px;background:#7c3aed;border-radius:3px"></div>
+      <div>
+        <div style="font-size:1.1rem;font-weight:700;color:#7c3aed">Digital Transformation for Inclusive Labour Migration Governance</div>
+        <div style="font-size:.8rem;color:#6b7a8d">A9718852 &nbsp;·&nbsp; 8 participants &nbsp;·&nbsp; 8 countries &nbsp;·&nbsp; 6 pre-course survey responses</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px">
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#7c3aed;text-transform:uppercase;margin-bottom:10px">Years of Experience</div>
+        <div style="height:160px"><canvas id="c852exp"></canvas></div>
+      </div>
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#7c3aed;text-transform:uppercase;margin-bottom:10px">Digital Migration System Status</div>
+        <div style="height:160px"><canvas id="c852cms"></canvas></div>
+      </div>
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#7c3aed;text-transform:uppercase;margin-bottom:10px">Prior Training on Digital Migration</div>
+        <div style="height:160px"><canvas id="c852train"></canvas></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#7c3aed;text-transform:uppercase;margin-bottom:10px">Top Topics of Interest</div>
+        <div style="height:180px"><canvas id="c852topics"></canvas></div>
+      </div>
+      <div class="card" style="box-shadow:none;border:1px solid #e8ecf1;padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:#7c3aed;text-transform:uppercase;margin-bottom:10px">Academic Background</div>
+        <div style="height:180px"><canvas id="c852bg"></canvas></div>
+      </div>
+    </div>
+    <div style="font-size:.85rem;font-weight:700;color:#003366;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #e8ecf1;text-transform:uppercase;letter-spacing:.4px">Participant Introductions</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px" id="cards852"></div>
+  </div>
 
   <!-- World Map -->
   <div class="section-title" style="margin-top:28px">World Map of Participants</div>
@@ -911,6 +1131,472 @@ renderTable(-1);
     }
   });
 })();
+
+// ══════════════════════════════════════════════════════════════════════════════
+// COURSE DEEP DIVES
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ── Tab switching ────────────────────────────────────────────────────────────
+const DEEP_COLORS = ['#1d4ed8','#0891b2','#059669','#d97706','#7c3aed'];
+let deepInitialized = [false,false,false,false,false];
+function switchDeep(idx, btn) {
+  document.querySelectorAll('#deepDiveTabs .tab-btn').forEach((b,i)=>{
+    b.classList.remove('active');
+    b.style.background = '#f8fafc'; b.style.color = '#6b7a8d';
+  });
+  btn.classList.add('active');
+  btn.style.background = 'white'; btn.style.color = DEEP_COLORS[idx];
+  document.querySelectorAll('.tab-panel[id^="deep"]').forEach(p=>p.classList.remove('active'));
+  document.getElementById('deep'+idx).classList.add('active');
+  if(!deepInitialized[idx]){ initDeep(idx); deepInitialized[idx]=true; }
+}
+
+// ── Shared chart helpers ─────────────────────────────────────────────────────
+const PIE_OPTS = (col) => ({
+  plugins:{legend:{position:'right',labels:{font:{size:10},padding:8,boxWidth:10}}},
+  cutout:'50%', maintainAspectRatio:false,
+});
+const BAR_OPTS_H = {
+  indexAxis:'y', plugins:{legend:{display:false}},
+  scales:{x:{grid:{color:'#f0f4f8'},ticks:{font:{size:9}}}, y:{grid:{display:false},ticks:{font:{size:9}}}},
+  maintainAspectRatio:false,
+};
+
+function mkDonut(id, labels, data, colors){
+  new Chart(document.getElementById(id),{
+    type:'doughnut',
+    data:{labels,datasets:[{data,backgroundColor:colors,borderWidth:2,borderColor:'white',hoverOffset:6}]},
+    options:{...PIE_OPTS(), maintainAspectRatio:false}
+  });
+}
+function mkBar(id, labels, data, color){
+  new Chart(document.getElementById(id),{
+    type:'bar', data:{labels,datasets:[{data,backgroundColor:color+'cc',borderRadius:4}]},
+    options:{...BAR_OPTS_H}
+  });
+}
+function mkBarV(id, labels, data, color){
+  new Chart(document.getElementById(id),{
+    type:'bar', data:{labels,datasets:[{data,backgroundColor:color+'cc',borderRadius:4}]},
+    options:{plugins:{legend:{display:false}},
+      scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:'#f0f4f8'},ticks:{font:{size:9}}}},
+      maintainAspectRatio:false}
+  });
+}
+
+// ── Intro card builder ────────────────────────────────────────────────────────
+function buildCards(containerId, cards, accentColor) {
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  cards.forEach(c=>{
+    const flag = ISO2[c.country] ? `<img src="https://flagcdn.com/w20/${ISO2[c.country]}.png" width="18" style="border-radius:2px;vertical-align:middle;box-shadow:0 0 0 1px #e2e8f0;margin-right:4px">` : '';
+    const tags = (c.tags||[]).map(t=>`<span class="ic-tag" style="background:${accentColor}18;color:${accentColor}">${t}</span>`).join('');
+    el.innerHTML += `<div class="intro-card">
+      <div class="ic-name">${flag}${c.name}</div>
+      <div class="ic-role" style="color:${accentColor}">${c.country} &nbsp;·&nbsp; ${c.role}</div>
+      <div class="ic-text">${c.intro}</div>
+      ${tags ? '<div>'+tags+'</div>' : ''}
+    </div>`;
+  });
+}
+
+// ── initDeep: render charts + cards per tab ──────────────────────────────────
+function initDeep(idx){
+  if(idx===0) initDeep841();
+  else if(idx===1) initDeep847();
+  else if(idx===2) initDeep848();
+  else if(idx===3) initDeep849();
+  else if(idx===4) initDeep852();
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// TAB 0 — A9718841 LABOUR INSPECTION
+// ─────────────────────────────────────────────────────────────────────────────
+function initDeep841(){
+  mkDonut('c841exp',
+    ['≤1 yr','1–3 yrs','3–8 yrs','8–15 yrs','>15 yrs','N/A'],
+    [1,2,2,5,6,2],
+    ['#bfdbfe','#93c5fd','#60a5fa','#3b82f6','#1d4ed8','#e2e8f0']);
+  mkDonut('c841insp',
+    ['Yes — in public labour inspection','No'],
+    [12,6],
+    ['#1d4ed8','#e2e8f0']);
+  mkDonut('c841train',
+    ['Yes — prior training','No'],
+    [10,8],
+    ['#1d4ed8','#fca5a5']);
+  mkBar('c841motiv',
+    ['Institution asked','Strengthen skills','Exchange experiences','Personal interest','Other'],
+    [5,5,4,3,1],'#1d4ed8');
+  mkBar('c841bg',
+    ['Public admin','Economics','Engineering','Law/HR','OSH','Management','Social sci','Labour insp.','Other'],
+    [3,2,2,2,1,1,1,1,5],'#1d4ed8');
+  buildCards('cards841',[
+    {name:'Nonyelum ANAYO-UZOCHUKWU',country:'Nigeria',role:'Asst Chief Maritime Labour Officer, NIMASA',
+     intro:'Eager to learn the role of digital transformation in dock labour inspection and improve data accuracy, resource allocation, and enhanced reporting.',
+     tags:['Digital tools','Compliance','Maritime']},
+    {name:'Vadym BONDAR',country:'Ukraine',role:'Head of Market Surveillance, State Labour Service',
+     intro:'Nearly 20 years at the State Labour Service. Interested in how modern technology can contribute to improving governance and inspection activities.',
+     tags:['Labour inspection','Digital governance','OSH']},
+    {name:'Mert EKSI',country:'Türkiye',role:'Labour Inspector, Ministry of Labour',
+     intro:'Labour Inspector and expert witness in courts. Wants to learn how digitally conducted audits are implemented across different countries.',
+     tags:['Digital audits','ILO','Labour law']},
+    {name:'Oleh HONCHAR',country:'Ukraine',role:'Head of Division — Accidents, State Labour Service',
+     intro:'Works on occupational safety and accident investigations. Interested in how digital technologies support labour inspection and improve compliance.',
+     tags:['OSH','Digital transformation','Compliance']},
+    {name:'Olena KONOVALOVA',country:'Ukraine',role:'Deputy Director — Labour Legislation, State Labour Service',
+     intro:'25 years of experience at the State Labour Service. Wants to understand how labour inspection is organised today using digital tools.',
+     tags:['Labour relations','Digital tools','Ukraine']},
+    {name:'Mlungisi MABUZA',country:'Eswatini',role:'Labour Inspector, Ministry of Labour',
+     intro:'Progressed through ILO training pathway (intro → advanced → agile). Aims to strengthen accountability and keep Eswatini inspection responsive to evolving world of work.',
+     tags:['ILO pathway','Risk targeting','Remote inspections']},
+    {name:'Svitlana NICHYK',country:'Ukraine',role:'Deputy Director — Analytical Support, State Labour Service',
+     intro:'25 years in labour inspection development. Seeks modern digital approaches for analytical support, workflow organisation, and management decisions.',
+     tags:['Analytics','Digital governance','Inspection']},
+    {name:'Nkiru NWANA',country:'Nigeria',role:'Chief Maritime Labour Officer, NIMASA',
+     intro:'Recently deployed to maritime labour department. Passionate about gospel music and cooking; seeks digital tools for labour inspection and compliance monitoring.',
+     tags:['Maritime labour','Digital tools','Compliance']},
+    {name:'Ruslan PAVLOVSKYI',country:'Ukraine',role:'Deputy Chief, Southern Dept, State Labour Service',
+     intro:'Passionate about sports and active lifestyle. Wants practical knowledge on digital tools and compliance monitoring to enhance inspection activities.',
+     tags:['Labour inspection','Digital solutions','OSH']},
+    {name:'Oleksandr ROZUMNYI',country:'Ukraine',role:'Head, North-Eastern Interregional Admin',
+     intro:'Leads regional labour service administration. Seeks current knowledge on digital OSH inspection tools, risk-based approaches, and data analysis.',
+     tags:['Risk-based inspection','Digital solutions','Ukraine']},
+    {name:'Roman SEMCHUK',country:'Ukraine',role:'Head, Central Interregional Dept, State Labour Service',
+     intro:'Leads an active lifestyle combining professional management with physical discipline. Interested in digital dashboards and mobile inspection tools.',
+     tags:['Management','Digital dashboards','Mobile tools']},
+    {name:'Andrii TYMENKO',country:'Ukraine',role:'Deputy Head, Central Interregional Dept',
+     intro:'13 years in state labour service. Values self-development and experience exchange. Keen on digital end-to-end inspection management.',
+     tags:['Digital inspection','OSH','Ukraine']},
+    {name:'Vedat ÜÇTAŞ',country:'Türkiye',role:'Labour Inspector, Ministry of Labour',
+     intro:'10 years as inspector and expert witness in labour courts. Wants to integrate AI and agile practices into daily field inspections.',
+     tags:['AI inspection','Agile methods','Turkey']},
+    {name:'Baidiuk SERGII',country:'Ukraine',role:'Head, Southern Interregional Dept',
+     intro:'Oversees labour supervision and inspection in the Southern region. Wants to improve risk assessment, priority-setting, and management decisions.',
+     tags:['Labour supervision','Digital tools','Ukraine']},
+    {name:'Ihor DEHNERA',country:'Ukraine',role:'Head, State Labour Service of Ukraine',
+     intro:'Senior leader in Ukraine\'s State Labour Service. Participating to modernize digital governance and inspection processes.',
+     tags:['Governance','Digital transformation','Ukraine']},
+    {name:'Linda OKPARA',country:'Nigeria',role:'Assistant Legal Adviser, Federal Ministry of Marine & Blue Economy',
+     intro:'Lawyer handling maritime labour cases. Wants to navigate from analog to digital case handling with a focus on security and regulatory compliance.',
+     tags:['Legal','Digital security','Maritime']},
+    {name:'Muhammad HARUNA',country:'Nigeria',role:'Asst Chief Marine Engineer, Federal Ministry of Marine & Blue Economy',
+     intro:'MSc in OSH from ITCILO Turin. Seeks institutional guidance to support Nigerian maritime labour relations and Blue Economy policy.',
+     tags:['OSH','Maritime governance','Blue Economy']},
+    {name:'Yusuf HALILU',country:'Nigeria',role:'Asst Director Shipping Development, Federal Ministry',
+     intro:'Passionate about connecting policy with real-world impact. Wants to modernize labour inspection using data-driven, AI-enabled digital tools.',
+     tags:['Digital inspection','Policy','Maritime']},
+    {name:'Sinya MTAWALI',country:'Malawi',role:'Principal Industrial Hygienist, Ministry of Labour',
+     intro:'Civil engineer turned OSH professional with an ITCILO masters. Eager to move beyond manual traditional methods and acquire AI and digital OSH tools.',
+     tags:['Industrial hygiene','OSH','Digital tools']},
+    {name:'Christopher OKPANACHI',country:'Nigeria',role:'Asst Chief Executive Officer, Ministry of Marine & Blue Economy',
+     intro:'Straightforward civil servant who loves photography and travel. Expects to become more effective handling labour issues and workplace relationships.',
+     tags:['Labour relations','Capacity building']},
+    {name:'Margaret UDOH',country:'Nigeria',role:'Chief Accountant, NIMASA',
+     intro:'Committed to continuous learning. Interested in how agile digital tools can strengthen labour inspection and workplace compliance in maritime sector.',
+     tags:['Compliance','Digital tools','Maritime']},
+  ],'#1d4ed8');
+  deepInitialized[0]=true;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// TAB 1 — A9718847 SOCIAL PROTECTION / AI
+// ─────────────────────────────────────────────────────────────────────────────
+function initDeep847(){
+  mkBarV('c847ai',
+    ['1','2','3','4','5','6','7','8','9','10'],
+    [1,4,1,1,1,2,0,0,0,0],'#0891b2');
+  mkBarV('c847dt',
+    ['1','2','3','4','5','6','7','8','9','10'],
+    [1,0,1,0,1,0,0,1,3,2],'#0891b2');
+  mkDonut('c847bg',
+    ['Computer Science','Information Technology','Engineering','Finance','Law','Administration','Economics','Other'],
+    [5,2,1,1,1,1,1,1],
+    ['#0891b2','#38bdf8','#7dd3fc','#bae6fd','#0369a1','#0c4a6e','#164e63','#e0f2fe']);
+  mkDonut('c847status',
+    ['Well established','Ongoing reform','New policy introduced','Designing new policy','Initial stages'],
+    [2,3,2,1,2],
+    ['#0891b2','#38bdf8','#7dd3fc','#bae6fd','#e0f2fe']);
+  mkBar('c847topics',
+    ['Real-life AI adoption','Automation / data tools','Cutting-edge AI','Data mgmt / accountability','Digital strategies','Agentic AI','Intl. legal frameworks','Political economy','Change management'],
+    [9,7,7,6,6,3,2,3,2],'#0891b2');
+  buildCards('cards847',[
+    {name:'Jose Eduardo BRANDAO',country:'Brazil',role:'Researcher, IPEA / IPC-IG',
+     intro:'30 years in IT management, now researching how AI can impact public social protection policies. Hopes this course bridges his tech background with international cooperation.',
+     tags:['AI policy','Social protection','Research']},
+    {name:'Taonsa WENDKOUNI JUDITHE',country:'Burkina Faso',role:'Chef de service IT, CNAMU',
+     intro:'Heads IT support at the national universal health insurance. Wants to integrate AI into web/mobile apps for social protection and understand AI for gender equality.',
+     tags:['Health insurance','AI integration','Gender equality']},
+    {name:'Kakada NHEM',country:'Cambodia',role:'IT Advisor, National Payment Certification Agency',
+     intro:'Love for coding and data. Curious about AI for health equity funds and automation in social protection. Fan of Måneskin.',
+     tags:['Health Equity Fund','AI automation','Cambodia']},
+    {name:'Kimsong SAO',country:'Cambodia',role:'Head of IT Unit, GS-NSPC',
+     intro:'10+ years building large-scale digital systems. Passionate about AI innovation to improve digital social protection service delivery in Cambodia.',
+     tags:['Digital SP','AI governance','Cambodia']},
+    {name:'Thida TEK',country:'Cambodia',role:'Deputy Director of IT, NSSF',
+     intro:'Leads IT strategy and digital transformation at the national social security fund. Wants to explore how AI can make services more accessible.',
+     tags:['Social security','IT strategy','AI']},
+    {name:'Annchan Krisna TITH',country:'Cambodia',role:'Policy Officer, GS-NSPC',
+     intro:'Works on social security and school feeding programs. Wants to bridge traditional policy with digital transformation and institutional change management.',
+     tags:['Social policy','Digital transformation','Cambodia']},
+    {name:'Patryck BILOUNGA',country:'Cameroon',role:'ICT Unit Manager, Adaptive Safety Net Project (World Bank)',
+     intro:'Building Cameroon\'s social registry of vulnerable people. Experienced in biometrics and microservices-based MIS. Wants to learn how AI can support complex digital social protection systems.',
+     tags:['Social registry','AI','MIS']},
+    {name:'Thierry GOUONG',country:'Cameroon',role:'Head of IT Unit, Ministry of Social Affairs',
+     intro:'Manages Cameroon\'s Social Registry MIS (RESUC). Wants practical skills on AI and digital innovation to build data models and AI agents.',
+     tags:['Social registry','AI agents','Data models']},
+    {name:'Mário DA SILVA CÁ',country:'Guinea-Bissau',role:'Network & Infrastructure Admin, INSS',
+     intro:'Passionate about technology and knowledge sharing. Wants to learn how digital tech can modernize social protection at INSS Guinea-Bissau.',
+     tags:['Network admin','Digital SP','Guinea-Bissau']},
+    {name:'Jose FERNANDES JUNIOR',country:'Guinea-Bissau',role:'Computer Network System Admin, INSS',
+     intro:'Network administrator seeking new technology experience and expanding knowledge in digital systems for social protection.',
+     tags:['Network systems','Digital tools']},
+    {name:'Meizahra AFIDATIE',country:'Indonesia',role:'Research Analyst, Indonesia National Economic Council',
+     intro:'Research analyst contributing to Indonesia\'s economic policy. Interested in data-driven AI tools and automation for social protection programs.',
+     tags:['Economic research','AI policy','Indonesia']},
+    {name:'Devy PRATIWI',country:'Indonesia',role:'Research Analyst, National Economy Council',
+     intro:'Focuses on economic research and digital transformation. Wants to leverage AI and digital strategies to improve social protection policy design.',
+     tags:['Research','Digital strategy','Indonesia']},
+    {name:'Theara KHOUN',country:'Cambodia',role:'Policy Analyst — Social & Economics, UNDP',
+     intro:'UNDP policy analyst working at the intersection of social protection and economic development. Focused on evidence-based digital governance.',
+     tags:['UNDP','Social policy','Digital governance']},
+    {name:'Benson KANSINJIRO',country:'Malawi',role:'Director, Ministry of Gender & Community Development',
+     intro:'Leads social welfare at ministry level. Interested in how digital tools can strengthen community-based social protection systems in Malawi.',
+     tags:['Social welfare','Community development','Malawi']},
+    {name:'Natasha MTIKA',country:'Malawi',role:'Chief Social Welfare Officer, Ministry of Gender',
+     intro:'Coordinates grievance redress systems. Wants digital tools for monitoring, evaluation, and building more responsive social welfare services.',
+     tags:['Grievance redress','Monitoring','Social welfare']},
+    {name:'Raja ADNANE',country:'Morocco',role:'Head of Data & Applications Division, ANSS',
+     intro:'Engineer leading data strategy at Morocco\'s social aid agency. Wants practical AI frameworks and data governance insights to bring back to ANSS.',
+     tags:['Data governance','AI strategy','Morocco']},
+    {name:'Houda EL FADILI',country:'Morocco',role:'Finance Engineer, Ministry of Economy & Finance',
+     intro:'Manages budget planning for Morocco\'s Direct Social Aid program. Wants to understand how AI can improve targeting, planning, and evaluation.',
+     tags:['Social aid','Budget planning','AI evaluation']},
+    {name:'Hamza ZARHOUNE',country:'Morocco',role:'Finance Administrator, Ministry of Economy & Finance',
+     intro:'Coordinates the Direct Social Aid program with government partners. Seeks digital targeting tools and leadership skills for digital transformation.',
+     tags:['Social aid','Digital governance','Morocco']},
+    {name:'Muhammad Nouman ALI',country:'Pakistan',role:'Programme Implementation Specialist, BISP',
+     intro:'Implements Pakistan\'s largest cash transfer programme. Interested in AI automation, data-driven tools, and international legal frameworks for social protection.',
+     tags:['Cash transfers','BISP','AI automation']},
+    {name:'Asim IJAZ',country:'Pakistan',role:'Director General — NSER / CCT, BISP',
+     intro:'Oversees the National Socio-Economic Registry and conditional cash transfers at BISP. Keen on AI for registry management and evidence-based social protection.',
+     tags:['Social registry','CCT','AI governance']},
+  ],'#0891b2');
+  deepInitialized[1]=true;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// TAB 2 — A9718848 OSH & DIGITALIZATION
+// ─────────────────────────────────────────────────────────────────────────────
+function initDeep848(){
+  mkDonut('c848exp',
+    ['≤1 yr','3–8 yrs','8–15 yrs','>15 yrs','Not specified'],
+    [1,1,2,5,1],
+    ['#bbf7d0','#4ade80','#16a34a','#059669','#e2e8f0']);
+  mkDonut('c848insp',
+    ['Yes — in OSH inspection','No — but related role'],
+    [4,6],
+    ['#059669','#d1fae5']);
+  mkDonut('c848train',
+    ['Yes — prior training','No'],
+    [5,5],
+    ['#059669','#fca5a5']);
+  mkBar('c848motiv',
+    ['Personal interest','Strengthen skills','Institution asked','Exchange experiences','Related area'],
+    [3,3,2,1,1],'#059669');
+  mkBar('c848bg',
+    ['OSH','Engineering','Medicine / Occ. Health','Public administration','Other'],
+    [3,2,1,1,3],'#059669');
+  buildCards('cards848',[
+    {name:'Ivan ACOSTA',country:'Belize',role:'NTUCB Trade Union',
+     intro:'National trade union representative interested in how digital transformation and AI can improve OSH practices and worker protection in Belize.',
+     tags:['Trade union','Worker protection','Digital OSH']},
+    {name:'Leslie NJUME',country:'Cameroon',role:'Lead Consultant & Managing Partner, OSH-Lab Consulting',
+     intro:'16 years as OSH consultant. Needs AI and digital tools to support high-risk clients in remote and crisis-affected areas of Cameroon. Building a software app with IT students.',
+     tags:['OSH consultancy','AI tools','Remote locations']},
+    {name:'Kenneth ODAME-AMOAH',country:'Ghana',role:'Safety Engineer, Golden Star Wassa (Gold Mining)',
+     intro:'15 years in surface and underground gold mining. Completed ITC-ILO OSH Masters. Wants hands-on digital OSH tools to shift from reactive to preventive safety.',
+     tags:['Mining safety','AI prevention','Digital OSH']},
+    {name:'Prashanth DEVARAJAN',country:'India',role:'Senior Manager / Head EHS, TATA Electronics',
+     intro:'17 years in OSH and sustainability. Builds safety management systems at industrial scale. Wants to explore AI for risk prediction and decision-making at Tata.',
+     tags:['EHS management','AI risk','ISO standards']},
+    {name:'Portia ADDO-OKYIREH',country:'Intl. Org.',role:'OSH Specialist, UN World Food Programme',
+     intro:'Consultant OSH Specialist at WFP, based in Accra. Passionate about teaching (former kindergarten teacher). Wants to integrate digital tools into risk management and training.',
+     tags:['WFP','Risk management','Digital training']},
+    {name:'Irene NWANZE',country:'Intl. Org.',role:'OSH Specialist, World Food Programme, Rome',
+     intro:'Background across oil & gas and the UN system. Wants practical AI insights for hazard identification, incident reporting, and data analysis in a global organisation.',
+     tags:['WFP','AI hazard ID','Incident reporting']},
+    {name:'Flavien ZITOUN',country:'Intl. Org.',role:'Chief Medical Officer (ad interim), WHO',
+     intro:'Staff physician at WHO since 2015. Basic knowledge of AI/digitalisation but eager to master these tools for a safe, healthy, and productive work environment.',
+     tags:['WHO','Staff health','AI beginner']},
+    {name:'Irene KARANJA',country:'Kenya',role:'Director of OSH, DOSHS, Ministry of Labour',
+     intro:'BSc Chemistry, MSc OSH. Wants to learn how AI is transforming OSH globally, especially for platform work and integrating micro/small enterprise workers into Kenya\'s OSH-MIS.',
+     tags:['Kenya OSH','Platform work','Digital inspection']},
+    {name:'Nuru ABDALLAH',country:'Nigeria',role:'Technical Asst to DG, NIMASA',
+     intro:'Fascinated by telemedicine and space science. Interested in how emerging technologies and AI can influence OSH management in the maritime sector.',
+     tags:['Maritime','AI technology','Telemedicine']},
+    {name:'Chinwe AMADIFE',country:'Nigeria',role:'Assistant Director, Ministry of Marine & Blue Economy',
+     intro:'Sponsored by NIMASA. Wants practical AI insights and tools that can improve performance and safety in Nigeria\'s maritime sector.',
+     tags:['Maritime safety','AI tools','Nigeria']},
+    {name:'Juliet BRAIDE',country:'Nigeria',role:'Senior Maritime Safety / IT Officer, NIMASA',
+     intro:'Marine Engineer and seafarer — proud to be among the 2% female seafarers worldwide. Wants to integrate digitalization into maritime health and safety systems.',
+     tags:['Maritime safety','Female seafarer','Digitalization']},
+    {name:'Emmanuel FASINTEI',country:'Nigeria',role:'Head Training Unit, NIMASA',
+     intro:'Helped extinguish a burning car using his safety knowledge. Heads maritime training unit and wants to apply AI to daily training activities and productivity.',
+     tags:['Safety training','AI','Maritime']},
+    {name:'Medinat FOLARIN',country:'Nigeria',role:'Asst Chief Legal Officer, NIMASA',
+     intro:'Lagos-based legal officer, introvert with disciplined realism. Curious about how AI can make workplace safety smarter and not just compliant.',
+     tags:['Legal','AI safety','Compliance']},
+    {name:'Hadiza IBRAHIM',country:'Nigeria',role:'Chief Administrative Officer, Federal Ministry of Marine',
+     intro:'Deeply committed to lifelong learning. Wants to acquire knowledge and tools to enhance maritime OSH and improve operational excellence.',
+     tags:['Public administration','Maritime OSH','Nigeria']},
+    {name:'Ansar MAHMOOD',country:'Saudi Arabia',role:'Senior HSE Manager, Red Sea Global Project',
+     intro:'19 years GCC experience, holds CSP, CRSP, CMIOSH. Already built paper-free safety systems and Power BI dashboards. Wants AI for proactive risk prevention.',
+     tags:['Giga projects','Power BI','AI risk prevention']},
+    {name:'Jossam KAMAZA',country:'Tanzania',role:'Training Officer, OSH Authority',
+     intro:'OSH trainer who enjoys football and jokes. Wants digital tools for OSH training materials and inspections to operate at national and international levels.',
+     tags:['OSH training','Digital tools','Tanzania']},
+    {name:'Ferdi KARAKAYA',country:'Türkiye',role:'OSH and Labour Expert, Ministry of Labour',
+     intro:'Chemical engineer with doctoral research in AI/ML for accident prevention. Wants to understand AI applications for inspection, prevention, and OSH policy.',
+     tags:['AI/ML','Accident prevention','OSH policy']},
+    {name:'Norman GWEZUVA',country:'Zimbabwe',role:'Principal OSH Training Officer, NSSA',
+     intro:'Sociable trainer at NSSA. Wants to implement VR, AR, e-learning and gamification into OSH training and build professional networks globally.',
+     tags:['VR/AR training','Gamification','E-learning']},
+    {name:'Penias MARUNZA',country:'Zimbabwe',role:'Chief Inspector of Factories, NSSA',
+     intro:'Senior factory inspector at NSSA. Participated with a video introduction. Brings field inspection expertise to digital transformation discussions.',
+     tags:['Factory inspection','OSH enforcement','Zimbabwe']},
+    {name:'Trust MASIMBA',country:'Zimbabwe',role:'Software Engineer, NSSA',
+     intro:'Software engineer developing OSH systems at NSSA. Keen to integrate AI into existing systems to enhance efficiency for Zimbabwean citizens and the global community.',
+     tags:['Software development','AI integration','OSH systems']},
+  ],'#059669');
+  deepInitialized[2]=true;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// TAB 3 — A9718849 CASE MANAGEMENT
+// ─────────────────────────────────────────────────────────────────────────────
+function initDeep849(){
+  mkDonut('c849bg',
+    ['Law','Information Technology','Other'],
+    [3,2,3],
+    ['#fbbf24','#d97706','#f3e8d0']);
+  mkDonut('c849exp',
+    ['<2 yrs','2–5 yrs','10–20 yrs','Not specified'],
+    [2,1,3,2],
+    ['#fde68a','#fbbf24','#d97706','#e2e8f0']);
+  mkDonut('c849cms',
+    ['No digital — paper-based','Undergoing reform/upgrade','Initial planning','CMS operational','CMS recently introduced'],
+    [2,2,2,1,1],
+    ['#fca5a5','#fbbf24','#d97706','#4ade80','#86efac']);
+  mkBar('c849topics',
+    ['Digital architecture / workflows','AI / automation','Foundations of digital governance','Change management / staff capacity','Data standards / interoperability','Data privacy / cybersecurity','Inclusion of vulnerable groups'],
+    [5,5,4,4,3,2,2],'#d97706');
+  mkDonut('c849train',
+    ['No — first training in this area','Yes — prior training'],
+    [8,0],
+    ['#fca5a5','#d97706']);
+  buildCards('cards849',[
+    {name:'Saeed AHMED',country:'Bangladesh',role:'Director & COO, Intellier Ltd.',
+     intro:'COO of Intellier Ltd, working on the ILO case management system in Bangladesh. Wants to deepen understanding of international best practices and strengthen project delivery.',
+     tags:['ILO project','CMS implementation','Bangladesh']},
+    {name:'Md BADRUZZAMAN',country:'Bangladesh',role:'Lead Business Analyst, Intellier Ltd.',
+     intro:'13+ years in software development. Directly involved in ILO case management system project. Wants to improve system design thinking and project management.',
+     tags:['Business analysis','CMS design','ILO Bangladesh']},
+    {name:'Ramkrishna BARMAN',country:'Bangladesh',role:'Senior Assistant Secretary, Ministry of Labour',
+     intro:'Ministry official focused on improving access to justice for workers and employers in Bangladesh through digital case management.',
+     tags:['Labour administration','Digital justice','Bangladesh']},
+    {name:'Md. Masum BILLAH',country:'Bangladesh',role:'Senior Assistant Secretary, Ministry of Labour',
+     intro:'Wants to reduce case backlogs and improve data management and workflow design through digital systems in Bangladesh\'s Ministry of Labour.',
+     tags:['Backlog reduction','Workflow design','Bangladesh']},
+    {name:'Sally-ann KING',country:'Barbados',role:'Senior Labour Officer, Ministry of Labour, Social Security',
+     intro:'Senior Labour Officer in Barbados keen to develop digital case management skills to improve dispute settlement and service delivery.',
+     tags:['Labour disputes','Digital tools','Barbados']},
+    {name:'Leandro BENEDETTI SBRISSA',country:'Brazil',role:'Self-Employed Lawyer / Former Judicial Branch Manager',
+     intro:'Law degree, specialisation in Labour Law, Masters from ITCILO Turin 2022. 20 years bridging paper and digital systems. Seeks contacts and perspectives for post-course research.',
+     tags:['Labour law','Digital management','ITCILO alumni']},
+    {name:'Kristina STANCHEVA',country:'Bulgaria',role:'Project Manager, NICA',
+     intro:'Lives 30 min from Sofia in a mountain village. Leads NICA 2.0 project on digital transformation of social dialogue. Loves hiking and nature.',
+     tags:['Social dialogue','Digital transformation','NICA 2.0']},
+    {name:'Majawonkhe DLAMINI',country:'Eswatini',role:'IT Officer, CMAC',
+     intro:'16 years at CMAC managing CMS. Wants to add automated client updates, SMS/email case flagging, and hearing reminders to improve case resolution.',
+     tags:['CMS automation','CMAC','Eswatini']},
+    {name:'Chowdhury KADIR',country:'Intl. Org.',role:'Senior Programme Officer, ILO Dhaka',
+     intro:'ILO senior officer focusing on dispute resolution and labour judiciary in Bangladesh. Brings international best-practice perspective to the cohort.',
+     tags:['ILO','Dispute resolution','Labour judiciary']},
+    {name:'Sebabatso RATSELE',country:'Lesotho',role:'Asst Dispute Prevention Officer, DDPR',
+     intro:'Started her career at 29 — "right on time." Plans to introduce and develop a full CMS for the DDPR in Lesotho, starting from paper-based processes.',
+     tags:['DDPR Lesotho','CMS rollout','Dispute prevention']},
+    {name:'Mansir ABUBAKAR',country:'Nigeria',role:'Chairman, Saban Garin Yaya Oil and Gas Ltd',
+     intro:'Private sector chairman in Nigeria\'s oil and gas industry. Interested in digital case management to improve business governance and dispute resolution.',
+     tags:['Oil & gas','Private sector','Nigeria']},
+    {name:'Racquel JACOBS-LAWRENCE',country:'St. Vincent',role:'Labour Commissioner, Government of St. Vincent',
+     intro:'Labour Commissioner who loves basketball (Spurs) and football (Real Madrid). Wants practical CMS skills to improve dispute settlement for St. Vincent and the Grenadines.',
+     tags:['Labour commissioner','Dispute settlement','Caribbean']},
+    {name:'Usekelege MPULLA',country:'Tanzania',role:'Director, Commission for Mediation and Arbitration',
+     intro:'Lawyer raised by his grandmother. Pioneered "Mobile Labour Disputes Resolution Services" for remote areas. Loves singing and football.',
+     tags:['CMA Tanzania','Mobile justice','Labour disputes']},
+    {name:'Moses MTUNZIE',country:'Zimbabwe',role:'Labour Officer, Ministry of Public Service Labour',
+     intro:'Labour Officer at Zimbabwe\'s Ministry of Public Service. Keen to adopt digital case management tools to modernize dispute resolution processes.',
+     tags:['Labour disputes','Digital CMS','Zimbabwe']},
+  ],'#d97706');
+  deepInitialized[3]=true;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// TAB 4 — A9718852 LABOUR MIGRATION
+// ─────────────────────────────────────────────────────────────────────────────
+function initDeep852(){
+  mkDonut('c852exp',
+    ['<2 yrs','2–5 yrs','5–10 yrs','10–20 yrs','Not specified'],
+    [1,1,1,2,1],
+    ['#ede9fe','#c4b5fd','#a78bfa','#7c3aed','#e2e8f0']);
+  mkDonut('c852cms',
+    ['No digital — paper-based','Undergoing reform','Initial planning','System recently introduced'],
+    [2,2,1,1],
+    ['#fca5a5','#c4b5fd','#7c3aed','#4ade80']);
+  mkDonut('c852train',
+    ['No — first training in this area','Yes — prior training'],
+    [5,1],
+    ['#fca5a5','#7c3aed']);
+  mkBar('c852topics',
+    ['Digital architecture / workflows','AI / automation','Data standards / interoperability','M&E / KPI frameworks','Digital tools fair recruitment','Foundations of digital governance','Data privacy / cybersecurity','Skills matching systems'],
+    [4,4,3,2,2,1,1,1],'#7c3aed');
+  mkDonut('c852bg',
+    ['Economics','Management','Social Protection','Health','Other'],
+    [1,1,1,1,2],
+    ['#7c3aed','#a78bfa','#c4b5fd','#ede9fe','#e2e8f0']);
+  buildCards('cards852',[
+    {name:'Yannick GNAMAN',country:"Côte d'Ivoire",role:'Head of Large Businesses Agency, Agence Emploi Jeunes',
+     intro:'16 years in public employment services, supporting job seekers and labour migration candidates. Wants interoperable digital architectures and AI for skills matching.',
+     tags:['Employment services','Labour migration','AI skills matching']},
+    {name:'Aya NAFI',country:'Jordan',role:'Freelance Researcher',
+     intro:'Independent researcher based in Amman. Interested in ethical data governance and digital systems that protect migrant workers\' rights throughout their journey.',
+     tags:['Research','Data ethics','Migrant rights']},
+    {name:'Grace MAINA',country:'Kenya',role:'Founder & Strategic Lead, Homebound Agencies Ltd',
+     intro:'Former marketing executive turned labour migration advocate. Runs a licensed ethical recruitment agency. Loves early morning runs and looks forward to in-person learning in Turin.',
+     tags:['Ethical recruitment','Labour migration','Kenya']},
+    {name:'Teuta QILERXHIU',country:'Kosovo',role:'Head of Division — Analysis & Contracts, Health Insurance Fund',
+     intro:'Based in Pristina. Works in health services contract management. Wants extended knowledge on digitalisation to solve problems and compare systems internationally.',
+     tags:['Health insurance','Digital systems','Kosovo']},
+    {name:'Ramita PRAJAPATI',country:'Nepal',role:'Knowledge Mgmt & Digitalization Specialist, HELVETAS Nepal',
+     intro:'Works on the ReMi (Returnee Migrants) project in Nepal. Supports digital data systems for reintegration. Passionate about storytelling and documenting migration stories.',
+     tags:['Reintegration','Digital MIS','Nepal']},
+    {name:'Wilma KOSI',country:'Papua New Guinea',role:'National Women\'s Representative, PNGTUC',
+     intro:'Trade union women\'s representative in Port Moresby. Pushing for labour migration governance to be included in PNG\'s AUD 17M labour law improvement programme.',
+     tags:['Trade union','Workers\' rights','PNG']},
+    {name:'Ganna KUZNETSOVA',country:'Switzerland',role:'President / Co-founder ERIDA, Verein Innovation und Soziales',
+     intro:'Built ERIDA, an AI platform helping refugees navigate integration services. 10 years with Swiss Govt in Ukraine. Practises and teaches yoga and meditation for 20 years. Author of children\'s books.',
+     tags:['AI platform','Refugee integration','Switzerland']},
+    {name:'Rungruedee INPHROM',country:'Thailand',role:'Labour Statistics Group, National Statistical Office',
+     intro:'Specialises in labour force and migration surveys. Wants practical digital governance approaches and data integration knowledge to support evidence-based policymaking.',
+     tags:['Labour statistics','Migration data','Thailand']},
+  ],'#7c3aed');
+  deepInitialized[4]=true;
+}
+
+// ── Initialize first tab on load ─────────────────────────────────────────────
+initDeep(0);
+deepInitialized[0]=true;
 
 // ── (removed) ─────────────────────────────────────────────────────────────────
 if(false)(function(){
