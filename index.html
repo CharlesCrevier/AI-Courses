@@ -96,14 +96,22 @@
   .gender-m { color: #1d4ed8; font-weight: 600; font-size: .7rem; }
   .gender-f { color: #be185d; font-weight: 600; font-size: .7rem; }
 
-  /* Tab nav */
-  .tabs { display: flex; gap: 0; border-bottom: 2px solid #e8ecf1; margin-bottom: 20px; flex-wrap: wrap; }
-  .tab-btn {
-    padding: 9px 18px; font-size: .82rem; font-weight: 600; cursor: pointer;
-    background: none; border: none; color: #6b7a8d; border-bottom: 3px solid transparent;
-    margin-bottom: -2px; transition: all .15s;
+  /* Top-level tab nav (below header) */
+  .top-tabs {
+    background: white; border-bottom: 3px solid #e8ecf1;
+    display: flex; flex-wrap: wrap; padding: 0 24px;
+    max-width: 1280px; margin: 0 auto;
   }
-  .tab-btn.active { color: #003366; border-bottom-color: #003366; }
+  .top-tab-btn {
+    padding: 13px 20px; font-size: .82rem; font-weight: 600; cursor: pointer;
+    background: none; border: none; color: #6b7a8d;
+    border-bottom: 3px solid transparent; margin-bottom: -3px;
+    transition: all .15s; line-height: 1.3; text-align: center;
+    white-space: nowrap;
+  }
+  .top-tab-btn.active { color: var(--tc, #003366); border-bottom-color: var(--tc, #003366); }
+  .top-tab-btn:hover:not(.active) { color: #374151; background: #f8fafc; }
+
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
@@ -120,14 +128,6 @@
   }
   .filter-btn.active { border-color: var(--c); background: var(--c); color: white; }
   .filter-btn.all.active { border-color: #003366; background: #003366; color: white; }
-
-  /* Deep dive tabs */
-  #deepDiveTabs .tab-btn {
-    border-radius: 8px 8px 0 0; padding: 10px 18px; font-size: .78rem; line-height: 1.3;
-    border: 1px solid #e8ecf1; border-bottom: none; background: #f8fafc; color: #6b7a8d;
-    min-width: 120px; text-align: center;
-  }
-  #deepDiveTabs .tab-btn.active { background: white; color: #003366; border-color: #e8ecf1; border-bottom: 1px solid white; }
 
   /* Intro cards */
   .intro-card {
@@ -154,7 +154,22 @@
   </div>
 </header>
 
+<!-- ══ TOP TAB NAV ══════════════════════════════════════════════════════════ -->
+<div style="background:white;border-bottom:3px solid #e8ecf1">
+  <div class="top-tabs">
+    <button class="top-tab-btn active" style="--tc:#003366" onclick="switchTop(0,this)">&#127968; Portfolio Overview</button>
+    <button class="top-tab-btn" style="--tc:#1d4ed8" onclick="switchTop(1,this)">&#128269; A9718841<br><span style="font-size:.65rem;font-weight:400">Labour Inspection</span></button>
+    <button class="top-tab-btn" style="--tc:#0891b2" onclick="switchTop(2,this)">&#128269; A9718847<br><span style="font-size:.65rem;font-weight:400">Social Protection / AI</span></button>
+    <button class="top-tab-btn" style="--tc:#059669" onclick="switchTop(3,this)">&#128269; A9718848<br><span style="font-size:.65rem;font-weight:400">OSH &amp; Digitalization</span></button>
+    <button class="top-tab-btn" style="--tc:#d97706" onclick="switchTop(4,this)">&#128269; A9718849<br><span style="font-size:.65rem;font-weight:400">Case Management</span></button>
+    <button class="top-tab-btn" style="--tc:#7c3aed" onclick="switchTop(5,this)">&#128269; A9718852<br><span style="font-size:.65rem;font-weight:400">Labour Migration</span></button>
+  </div>
+</div>
+
 <div class="container">
+
+<!-- ══ TAB 0: PORTFOLIO OVERVIEW ══════════════════════════════════════════ -->
+<div id="topTab0" class="tab-panel active">
 
   <!-- KPI row -->
   <div class="kpi-row">
@@ -350,22 +365,23 @@
   </div>
 
 
-  <!-- ═══ COURSE DEEP DIVES ════════════════════════════════════════════════ -->
-  <div class="section-title" style="margin-top:40px;font-size:1.2rem;color:#003366;border-bottom:3px solid #003366">
-    &#9632; Course Deep Dives &mdash; Pre-course Survey &amp; Participant Introductions
+  <!-- World Map -->
+  <div class="section-title" style="margin-top:28px">World Map of Participants</div>
+  <div class="card" style="margin-bottom:20px">
+    <h2>Geographic Distribution &mdash; 32 Countries</h2>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px" id="mapLegend"></div>
+    <div id="worldMap" style="height:480px;width:100%"></div>
+    <div id="mapTooltipBox" style="display:none;position:fixed;background:#1a2332;color:white;padding:8px 12px;border-radius:6px;font-size:.8rem;pointer-events:none;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.3)"></div>
   </div>
 
-  <!-- Course tab navigation -->
-  <div class="tabs" id="deepDiveTabs" style="margin-bottom:0;border-bottom:none;gap:6px;padding-bottom:0">
-    <button class="tab-btn active" style="border-radius:8px 8px 0 0;background:#1d4ed8;color:white;border-bottom-color:#1d4ed8" onclick="switchDeep(0,this)">A9718841<br><span style="font-size:.65rem;font-weight:400">Labour Inspection</span></button>
-    <button class="tab-btn" style="border-radius:8px 8px 0 0" onclick="switchDeep(1,this)">A9718847<br><span style="font-size:.65rem;font-weight:400">Social Protection / AI</span></button>
-    <button class="tab-btn" style="border-radius:8px 8px 0 0" onclick="switchDeep(2,this)">A9718848<br><span style="font-size:.65rem;font-weight:400">OSH &amp; Digitalization</span></button>
-    <button class="tab-btn" style="border-radius:8px 8px 0 0" onclick="switchDeep(3,this)">A9718849<br><span style="font-size:.65rem;font-weight:400">Case Management</span></button>
-    <button class="tab-btn" style="border-radius:8px 8px 0 0" onclick="switchDeep(4,this)">A9718852<br><span style="font-size:.65rem;font-weight:400">Labour Migration</span></button>
-  </div>
+<!-- ══ END TAB 0 ══════════════════════════════════════════════════════════ -->
+</div>
+
+<!-- ══ TAB 1: A9718841 Labour Inspection ════════════════════════════════ -->
+<div id="topTab1" class="tab-panel">
 
   <!-- ── TAB 0: A9718841 Labour Inspection ─────────────────────────────────── -->
-  <div id="deep0" class="tab-panel active" style="background:white;border-radius:0 10px 10px 10px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:20px">
+  <div id="deep0" style="background:white;border-radius:10px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:20px">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
       <div style="width:6px;height:48px;background:#1d4ed8;border-radius:3px"></div>
       <div>
@@ -403,8 +419,14 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px" id="cards841"></div>
   </div>
 
-  <!-- ── TAB 1: A9718847 Social Protection / AI ─────────────────────────────── -->
-  <div id="deep1" class="tab-panel" style="background:white;border-radius:0 10px 10px 10px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:20px">
+<!-- ══ END TAB 1 ══════════════════════════════════════════════════════════ -->
+</div>
+
+<!-- ══ TAB 2: A9718847 Social Protection / AI ═══════════════════════════ -->
+<div id="topTab2" class="tab-panel">
+
+  <!-- ── A9718847 Social Protection / AI ─────────────────────────────────── -->
+  <div id="deep1" style="background:white;border-radius:10px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:20px">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
       <div style="width:6px;height:48px;background:#0891b2;border-radius:3px"></div>
       <div>
@@ -440,8 +462,14 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px" id="cards847"></div>
   </div>
 
-  <!-- ── TAB 2: A9718848 OSH & Digitalization ─────────────────────────────── -->
-  <div id="deep2" class="tab-panel" style="background:white;border-radius:0 10px 10px 10px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:20px">
+<!-- ══ END TAB 2 ══════════════════════════════════════════════════════════ -->
+</div>
+
+<!-- ══ TAB 3: A9718848 OSH & Digitalization ════════════════════════════ -->
+<div id="topTab3" class="tab-panel">
+
+  <!-- ── A9718848 OSH & Digitalization ─────────────────────────────────── -->
+  <div id="deep2" style="background:white;border-radius:10px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:20px">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
       <div style="width:6px;height:48px;background:#059669;border-radius:3px"></div>
       <div>
@@ -477,8 +505,14 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px" id="cards848"></div>
   </div>
 
-  <!-- ── TAB 3: A9718849 Case Management ─────────────────────────────────── -->
-  <div id="deep3" class="tab-panel" style="background:white;border-radius:0 10px 10px 10px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:20px">
+<!-- ══ END TAB 3 ══════════════════════════════════════════════════════════ -->
+</div>
+
+<!-- ══ TAB 4: A9718849 Case Management ══════════════════════════════════ -->
+<div id="topTab4" class="tab-panel">
+
+  <!-- ── A9718849 Case Management ─────────────────────────────────────── -->
+  <div id="deep3" style="background:white;border-radius:10px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:20px">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
       <div style="width:6px;height:48px;background:#d97706;border-radius:3px"></div>
       <div>
@@ -514,8 +548,14 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px" id="cards849"></div>
   </div>
 
-  <!-- ── TAB 4: A9718852 Labour Migration ──────────────────────────────────── -->
-  <div id="deep4" class="tab-panel" style="background:white;border-radius:0 10px 10px 10px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:20px">
+<!-- ══ END TAB 4 ══════════════════════════════════════════════════════════ -->
+</div>
+
+<!-- ══ TAB 5: A9718852 Labour Migration ═════════════════════════════════ -->
+<div id="topTab5" class="tab-panel">
+
+  <!-- ── A9718852 Labour Migration ─────────────────────────────────────── -->
+  <div id="deep4" style="background:white;border-radius:10px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:20px">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
       <div style="width:6px;height:48px;background:#7c3aed;border-radius:3px"></div>
       <div>
@@ -551,16 +591,10 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px" id="cards852"></div>
   </div>
 
-  <!-- World Map -->
-  <div class="section-title" style="margin-top:28px">World Map of Participants</div>
-  <div class="card" style="margin-bottom:20px">
-    <h2>Geographic Distribution &mdash; 32 Countries</h2>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px" id="mapLegend"></div>
-    <div id="worldMap" style="height:480px;width:100%"></div>
-    <div id="mapTooltipBox" style="display:none;position:fixed;background:#1a2332;color:white;padding:8px 12px;border-radius:6px;font-size:.8rem;pointer-events:none;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.3)"></div>
-  </div>
-
+<!-- ══ END TAB 5 ══════════════════════════════════════════════════════════ -->
 </div>
+
+</div><!-- /.container -->
 
 <script>
 // ── Data ──────────────────────────────────────────────────────────────────────
@@ -1139,17 +1173,21 @@ renderTable(-1);
 // ── Tab switching ────────────────────────────────────────────────────────────
 const DEEP_COLORS = ['#1d4ed8','#0891b2','#059669','#d97706','#7c3aed'];
 let deepInitialized = [false,false,false,false,false];
-function switchDeep(idx, btn) {
-  document.querySelectorAll('#deepDiveTabs .tab-btn').forEach((b,i)=>{
-    b.classList.remove('active');
-    b.style.background = '#f8fafc'; b.style.color = '#6b7a8d';
-  });
+
+// Top-level tab switcher
+function switchTop(idx, btn) {
+  document.querySelectorAll('.top-tab-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  btn.style.background = 'white'; btn.style.color = DEEP_COLORS[idx];
-  document.querySelectorAll('.tab-panel[id^="deep"]').forEach(p=>p.classList.remove('active'));
-  document.getElementById('deep'+idx).classList.add('active');
-  if(!deepInitialized[idx]){ initDeep(idx); deepInitialized[idx]=true; }
+  document.querySelectorAll('#topTab0,#topTab1,#topTab2,#topTab3,#topTab4,#topTab5').forEach(p=>p.classList.remove('active'));
+  document.getElementById('topTab'+idx).classList.add('active');
+  // course deep dives are idx 1-5 → deepIdx 0-4
+  if(idx >= 1 && !deepInitialized[idx-1]){ initDeep(idx-1); deepInitialized[idx-1]=true; }
+  // re-render map if returning to overview
+  if(idx===0 && window._mapNeedsResize){ window.dispatchEvent(new Event('resize')); }
 }
+
+// (legacy no-op kept for safety)
+function switchDeep(idx, btn) {}
 
 // ── Shared chart helpers ─────────────────────────────────────────────────────
 const PIE_OPTS = (col) => ({
@@ -1296,7 +1334,6 @@ function initDeep841(){
      intro:'Committed to continuous learning. Interested in how agile digital tools can strengthen labour inspection and workplace compliance in maritime sector.',
      tags:['Compliance','Digital tools','Maritime']},
   ],'#1d4ed8');
-  deepInitialized[0]=true;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1594,9 +1631,8 @@ function initDeep852(){
   deepInitialized[4]=true;
 }
 
-// ── Initialize first tab on load ─────────────────────────────────────────────
-initDeep(0);
-deepInitialized[0]=true;
+// ── Deep-dive tabs are lazy-loaded on first click ────────────────────────────
+// (no auto-init needed — course tabs are hidden until clicked)
 
 // ── (removed) ─────────────────────────────────────────────────────────────────
 if(false)(function(){
