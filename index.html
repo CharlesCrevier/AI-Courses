@@ -936,7 +936,7 @@ function renderTable(filter) {
       <td style="white-space:nowrap">${flagImg(p.c)} &nbsp;${p.c}</td>
       <td>${p.inst}</td>
       <td style="color:#4a5568">${p.pos}</td>
-      <td><span style="font-size:.7rem;font-weight:700;color:${c.color};background:${c.color}18;padding:2px 7px;border-radius:10px">${c.id}</span></td>
+      <td><span style="font-size:.7rem;font-weight:700;color:${c.color};background:${c.color}18;padding:2px 7px;border-radius:10px">${c.short}</span></td>
     </tr>`;
   });
 }
@@ -946,7 +946,7 @@ const filterRow = document.getElementById('courseFilter');
 filterRow.innerHTML = `<button class="filter-btn all active" style="--c:#003366" onclick="setFilter(-1,this)">All (85)</button>`;
 COURSES.forEach((c,i)=>{
   const cnt = PARTICIPANTS.filter(p=>p.course===i).length;
-  filterRow.innerHTML += `<button class="filter-btn" style="--c:${c.color}" onclick="setFilter(${i},this)">${c.id} (${cnt})</button>`;
+  filterRow.innerHTML += `<button class="filter-btn" style="--c:${c.color}" onclick="setFilter(${i},this)">${c.short} (${cnt})</button>`;
 });
 
 function setFilter(idx, btn) {
